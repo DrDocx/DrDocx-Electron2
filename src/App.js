@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
+import Header from "./components/Header/Header";
+import Navigator from "./components/Navigator/Navigator";
+import Main from "./components/Main/Main";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {title: this.props.title};
+    }
+
+    render() {
+    return (
+        <div className="App">
+          <Header title={this.props.title}/>
+          <Navigator/>
+          <Main/>
+        </div>
+    );
+    }
 }
+
+App.propTypes = {
+  title: PropTypes.string,
+};
 
 export default App;
