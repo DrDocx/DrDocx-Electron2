@@ -15,3 +15,5 @@ class PatientsService {
     }
 }
 
+export default PatientsService;
+
