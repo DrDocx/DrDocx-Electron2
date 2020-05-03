@@ -5,7 +5,7 @@ class PatientsTable extends Component {
     render() {
         return (
             <div>
-                
+                <h1>Patients table</h1>
             </div>
         );
     }

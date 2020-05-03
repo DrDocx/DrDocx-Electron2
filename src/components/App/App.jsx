@@ -5,6 +5,8 @@ import Header from "../Header/Header";
 import Navigator from "../Navigator/Navigator";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
+import {withStyles} from "@material-ui/core";
+import {styles} from "./AppStyle"
 
 class App extends Component {
     constructor(props) {
@@ -27,7 +29,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Header title={this.state.title} toggleNavigator={this.toggleNavigator}/>
-                <Navigator open={this.state.navigatorOpen}/>
+                <Navigator open={this.state.navigatorOpen} toggleNavigator={this.toggleNavigator}/>
                 <Main/>
                 <Footer/>
             </div>
@@ -39,4 +41,4 @@ App.propTypes = {
     title: PropTypes.string
 };
 
-export default App;
+export default withStyles(styles)(App);

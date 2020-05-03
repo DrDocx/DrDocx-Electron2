@@ -1,97 +1,54 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {makeStyles} from "@material-ui/core/styles";
-import ListItem from "@material-ui/core/ListItem";
-import List from "@material-ui/core/List";
-import ListItemText from "@material-ui/core/ListItemText";
-import Drawer from "@material-ui/core/Drawer";
+import {withRouter, useLocation} from 'react-router-dom'
+import {withStyles} from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem, {ListItemProps} from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
-const drawerWidth = 240;
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import InputIcon from '@material-ui/icons/Input';
+import PeopleIcon from '@material-ui/icons/People';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {useStyles} from './NavigatorStyle.jsx'
+import NavigatorHeader from "./NavigatorHeader";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    hide: {
-        display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    },
-}));
+var categories = [
+    {id: 'Patients', icon: <PeopleIcon/>},
+    {id: 'Patient Fields', icon: <InputIcon/>},
+    {id: 'Templates', icon: <PostAddIcon/>},
+    {id: 'Tests', icon: <AssignmentIndIcon/>}
+];
 
-function Navigator(props) {
-    const classes = useStyles();
-    return (
-        <Fragment>
-            <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="left"
-                open={props.open}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-            >
-                <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemText primary={text}/>
-                        </ListItem>
-                    ))}
-                </List>
+class Navigator extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {location: this.props.location.pathname}
+    }
+
+    setActiveTab = () => {
+
+    };
+
+    render() {
+
+        return (
+            <Drawer>
+                <NavigatorHeader/>
+                <Divider className={this.props.classes.divider}/>
             </Drawer>
-        </Fragment>
-    );
+        );
+    }
 }
 
 Navigator.propTypes = {
-    open: PropTypes.bool.isRequired
+    open: PropTypes.bool.isRequired,
+    toggleNavigator: PropTypes.func.isRequired,
 };
 
-export default Navigator;
+export default withStyles(useStyles)(withRouter(Navigator));
