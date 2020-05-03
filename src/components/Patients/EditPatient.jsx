@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-class Fields extends Component {
+class EditPatient extends Component {
     render() {
         return (
             <div>
-                <h1>Fields page</h1>
+
             </div>
         );
     }
 }
 
-Fields.propTypes = {};
+EditPatient.propTypes = {};
 
-export default Fields;
+export default EditPatient;

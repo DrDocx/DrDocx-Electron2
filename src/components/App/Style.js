@@ -31,15 +31,15 @@ theme = {
     },
 };
 
-const drawerWidth = 185;
+export const appTheme = theme;
 
-const styles = createStyles({
+export const styles = createStyles({
     root: {
         display: 'flex',
         minHeight: '100vh',
     },
     drawer: {
-        width: drawerWidth,
+        width: 185,
         flexShrink: 0,
     },
     app: {
@@ -50,7 +50,7 @@ const styles = createStyles({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
         }),
-        marginLeft: -drawerWidth,
+        marginLeft: -185,
     },
     appShiftfront: {
         transition: theme.transitions.create(['margin'], {

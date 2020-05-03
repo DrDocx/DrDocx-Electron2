@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-class PatientForm extends Component {
+class ShowPatient extends Component {
     render() {
         return (
             <div>
@@ -11,6 +11,8 @@ class PatientForm extends Component {
     }
 }
 
-PatientForm.propTypes = {};
+ShowPatient.propTypes = {
+    patient: PropTypes.object.isRequired
+};
 
-export default PatientForm;
+export default ShowPatient;
