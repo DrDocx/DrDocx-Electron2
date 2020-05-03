@@ -46,8 +46,7 @@
     "concurrently": "^5.2.0",
     "electron": "^8.2.5",
     "electron-builder": "^22.6.0",
-    "wait-on": "^4.0.2",
-    "webpack-cli": "^3.3.11"
+    "wait-on": "^4.0.2"
   },
   "build": {
     "extends": null,
@@ -56,9 +55,8 @@
       "icon": "build/icon.ico"
     },
     "files": [
-      "public",
-      "build/",
-      "node_modules/"
+      "public/",
+      "build/"
     ]
   }
 }
