@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import {Switch, Route, useRouteMatch} from 'react-router-dom';
 import PatientsTable from "./PatientsTable";
 import PatientsService from "../../services/PatientsService/PatientsService";
