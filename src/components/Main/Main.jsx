@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Switch, Route} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import Patients from "../Patients/Patients";
 import Fields from "../Fields/Fields";
 import Link from "@material-ui/core/Link";

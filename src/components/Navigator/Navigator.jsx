@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import {withRouter, useLocation} from 'react-router-dom'
 import {withStyles} from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';

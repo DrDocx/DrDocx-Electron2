@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import './App.css';
 import Header from "../Header/Header";
 import Navigator from "../Navigator/Navigator";

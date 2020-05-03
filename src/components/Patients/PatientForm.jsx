@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import PatientsService from "../../services/PatientsService/PatientsService";
+import {withRouter} from "react-router-dom";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class PatientForm extends Component {
 
     savePatient = () => {
         if (this.state.patientId == null) {
-            PatientsService.createPatient(this.state)
+            PatientsService.createPatient(this.state).then((response) => {
+            });
         }
     };
 
@@ -29,4 +31,4 @@ PatientForm.propTypes = {
     patient: PropTypes.object
 };
 
-export default PatientForm;
+export default withRouter(PatientForm);
