@@ -9,18 +9,25 @@ import Footer from "../Footer/Footer";
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {title: this.props.title ?? ""};
+        this.state = {title: this.props.title ?? "", navigatorOpen: true};
     }
 
     setTitle = (title) => {
         this.setState({title: title});
     };
 
+    toggleNavigator = () => {
+        this.setState(previousState => ({
+                navigatorOpen: !previousState.navigatorOpen
+            }
+        ));
+    };
+
     render() {
         return (
             <div className="App">
-                <Header title={this.state.title}/>
-                <Navigator/>
+                <Header title={this.state.title} toggleNavigator={this.toggleNavigator}/>
+                <Navigator open={this.state.navigatorOpen}/>
                 <Main/>
                 <Footer/>
             </div>

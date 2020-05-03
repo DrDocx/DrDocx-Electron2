@@ -6,19 +6,21 @@ import PatientsIndex from "./PatientsIndex";
 class Patients extends Component {
 
     render() {
-        let match = useRouteMatch();
+        const matchPath = this.props.match.path;
         return (
             <Switch>
-                <Route exact path={match.path}>
+                <Route exact path={matchPath}>
                     <PatientsIndex />
                 </Route>
-                <Route path={`${match.path}/:patientId`}>
+                <Route path={`${matchPath}/:patientId`}>
                 </Route>
             </Switch>
         );
     }
 }
 
-Patients.propTypes = {};
+Patients.propTypes = {
+    match: PropTypes.object.isRequired
+};
 
 export default Patients;

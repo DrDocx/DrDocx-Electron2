@@ -8,8 +8,7 @@ import ShowPatient from "./ShowPatient";
 class Patient extends Component {
     constructor(props) {
         super(props);
-        let { patientId } = useParams();
-        this.state = { patientId: patientId };
+        this.state = { patientId: this.props.match.params.patientId };
     }
 
     componentDidMount() {
@@ -23,19 +22,21 @@ class Patient extends Component {
     };
 
     render() {
-        let match = useRouteMatch();
+        const matchPath = this.props.match.patch;
         return (
             <Switch>
-                <Route exact path={match.path}>
+                <Route exact path={matchPath}>
                     <ShowPatient patient={this.state.patient}/>
                 </Route>
-                <Route path={`${match.path}/:patientId`}>
+                <Route path={`${matchPath}/:patientId`}>
                 </Route>
             </Switch>
         );
     }
 }
 
-Patient.propTypes = {};
+Patient.propTypes = {
+    match: PropTypes.object.isRequired
+};
 
 export default Patient;
