@@ -14,7 +14,7 @@ class Patients extends Component {
                 <Route exact path={matchPath}>
                     <PatientsIndex/>
                 </Route>
-                <Route path={`${matchPath}/:patientId(\\\\d+)`} component={Patient}/>
+                <Route path={`${matchPath}/:patientId(\\d+)`} component={Patient}/>
                 <Route path={`${matchPath}/new`} component={NewPatient}/>
             </Switch>
         );
