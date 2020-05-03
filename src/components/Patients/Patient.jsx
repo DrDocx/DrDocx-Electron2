@@ -28,8 +28,6 @@ class Patient extends Component {
                 <Route exact path={matchPath}>
                     <ShowPatient patient={this.state.patient}/>
                 </Route>
-                <Route path={`${matchPath}/:patientId`}>
-                </Route>
             </Switch>
         );
     }

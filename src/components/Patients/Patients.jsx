@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, useRouteMatch} from 'react-router-dom';
 import PatientsIndex from "./PatientsIndex";
+import Patient from "./Patient";
 
 class Patients extends Component {
 
@@ -10,10 +11,9 @@ class Patients extends Component {
         return (
             <Switch>
                 <Route exact path={matchPath}>
-                    <PatientsIndex />
+                    <PatientsIndex/>
                 </Route>
-                <Route path={`${matchPath}/:patientId`}>
-                </Route>
+                <Route path={`${matchPath}/:patientId`} component={Patient}/>
             </Switch>
         );
     }
