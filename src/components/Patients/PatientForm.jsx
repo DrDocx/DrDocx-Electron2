@@ -13,7 +13,13 @@ class PatientForm extends Component {
 
     savePatient = () => {
         if (this.state.patientId == null) {
-            PatientsService.createPatient(this.state).then((response) => {
+            PatientsService.createPatient(this.state.patient).then((response) => {
+                this.props.history.push(`/patients/${response.id}`);
+            });
+        }
+        else {
+            PatientsService.updatePatient(this.state.patientId, this.state.patient).then((response) => {
+               this.props.history.push(`/patients/${response.id}`)
             });
         }
     };
@@ -21,7 +27,7 @@ class PatientForm extends Component {
     render() {
         return (
             <Fragment>
-
+                
             </Fragment>
         );
     }
