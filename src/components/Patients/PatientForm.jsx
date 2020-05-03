@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
+import PatientsService from "../../services/PatientsService/PatientsService";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -9,9 +10,9 @@ class PatientForm extends Component {
         }
     }
 
-    upsertPatient = () => {
-        if (this.state.patientId != null) {
-
+    savePatient = () => {
+        if (this.state.patientId == null) {
+            PatientsService.createPatient(this.state)
         }
     };
 
