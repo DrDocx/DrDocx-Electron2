@@ -9,6 +9,12 @@ class PatientForm extends Component {
         }
     }
 
+    upsertPatient = () => {
+        if (this.state.patientId != null) {
+
+        }
+    };
+
     render() {
         return (
             <Fragment>

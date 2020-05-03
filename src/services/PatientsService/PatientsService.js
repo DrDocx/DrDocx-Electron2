@@ -13,6 +13,14 @@ class PatientsService {
     static async getPatient(id) {
         return axios.get(this.patientUrl(id)).then(response => response.data);
     }
+
+    static async updatePatient(id, patient) {
+
+    }
+
+    static async createPatient(patient) {
+
+    }
 }
 
 export default PatientsService;
