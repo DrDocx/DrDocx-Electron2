@@ -4,6 +4,7 @@ import {Switch, Route, useRouteMatch, useParams} from 'react-router-dom';
 import PatientsService from '../../services/PatientsService/PatientsService';
 import PatientsIndex from "./PatientsIndex";
 import ShowPatient from "./ShowPatient";
+import EditPatient from "./EditPatient";
 
 class Patient extends Component {
     constructor(props) {
@@ -27,6 +28,9 @@ class Patient extends Component {
             <Switch>
                 <Route exact path={matchPath}>
                     <ShowPatient patient={this.state.patient}/>
+                </Route>
+                <Route path={`${matchPath}/edit`}>
+                    <EditPatient patient={this.state.patient}/>
                 </Route>
             </Switch>
         );

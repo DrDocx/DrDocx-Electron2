@@ -2,19 +2,16 @@ import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import PatientForm from "./PatientForm";
 
-class EditPatient extends Component {
-
+class NewPatient extends Component {
     render() {
         return (
             <Fragment>
-                <PatientForm patient={this.props.patient} />
+                <PatientForm />
             </Fragment>
         );
     }
 }
 
-EditPatient.propTypes = {
-    patient: PropTypes.object.isRequired
-};
+NewPatient.propTypes = {};
 
-export default EditPatient;
+export default NewPatient;
