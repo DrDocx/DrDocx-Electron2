@@ -5,6 +5,11 @@ import PatientsTable from "./PatientsTable";
 import PatientsService from "../../services/PatientsService/PatientsService";
 
 class PatientsIndex extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {patients: []};
+    }
+
     componentDidMount() {
         this.updatePatients();
     }
@@ -18,7 +23,7 @@ class PatientsIndex extends Component {
     render() {
         return (
             <div>
-                <PatientsTable/>
+                <PatientsTable patients={this.state.patients}/>
             </div>
         );
     }

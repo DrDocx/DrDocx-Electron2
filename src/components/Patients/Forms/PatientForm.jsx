@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import PatientsService from "../../../services/PatientsService/PatientsService";
 import {withRouter} from "react-router-dom";
+import {TextField} from "@material-ui/core";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class PatientForm extends Component {
     render() {
         return (
             <Fragment>
-                
+                <TextField id="standard-basic" label="Name" />
             </Fragment>
         );
     }
