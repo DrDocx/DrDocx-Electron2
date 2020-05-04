@@ -4,7 +4,7 @@ import {Switch, Route, useRouteMatch, useParams} from 'react-router-dom';
 import PatientsService from '../../services/PatientsService/PatientsService';
 import PatientsIndex from "./PatientsIndex";
 import ShowPatient from "./ShowPatient";
-import EditPatient from "./EditPatient";
+import EditPatient from "./Forms/EditPatient";
 
 class Patient extends Component {
     constructor(props) {

@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
-import PatientsService from "../../services/PatientsService/PatientsService";
+import PatientsService from "../../../services/PatientsService/PatientsService";
 import {withRouter} from "react-router-dom";
 
 class PatientForm extends Component {
