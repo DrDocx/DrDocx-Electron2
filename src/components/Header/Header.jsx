@@ -21,8 +21,6 @@ class Header extends Component {
                         <Typography variant="h6">
                             {this.props.title}
                         </Typography>
-                        <Button color="inherit" onClick={() => { this.props.history.push("/patients");}}>Patients</Button>
-                        <Button color="inherit" onClick={() => { this.props.history.push("/fields");}}>Fields</Button>
                     </Toolbar>
                 </AppBar>
             </Fragment>
