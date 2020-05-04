@@ -33,7 +33,6 @@ class Navigator extends React.Component {
 			location: this.props.location.pathname,
 			activeTab: this.props.activeTab
 		}
-		console.log(this.props.location.pathname);
 	}
 
 	setActiveTab = (newActiveTab) => {
