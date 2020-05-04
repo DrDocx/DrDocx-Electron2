@@ -16,12 +16,13 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { styles } from './NavigatorStyle.jsx'
 import logo from '../../images/logo.png';
 import clsx from 'clsx';
+import {navigatorWidth} from "../App/AppStyle";
 
 var categories = [
 	{ id: 'Patients', icon: <PeopleIcon />, route: '/patients' },
-	{ id: 'Patient Fields', icon: <InputIcon />, route: '/fields' },
+	{ id: 'Custom Fields', icon: <InputIcon />, route: '/fields' },
+	{ id: 'Tests', icon: <AssignmentIndIcon />, route: '/tests' },
 	{ id: 'Templates', icon: <PostAddIcon />, route: '/templates' },
-	{ id: 'Tests', icon: <AssignmentIndIcon />, route: '/tests' }
 ];
 
 class Navigator extends React.Component {
@@ -47,7 +48,7 @@ class Navigator extends React.Component {
 			<Drawer
 				open={this.props.open}
 				onClose={this.props.toggleNavigator}
-				PaperProps={{ style: { width: 185 } }}
+				PaperProps={{ style: { width: navigatorWidth } }}
 				variant="persistent"
 			>
 				<ListItem className={clsx(classes.itemCategory)}>

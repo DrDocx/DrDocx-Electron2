@@ -115,6 +115,7 @@ theme = {
 };
 
 export const appTheme = theme;
+export const navigatorWidth = 200;
 
 export const styles = createStyles({
 	root: {
@@ -122,7 +123,7 @@ export const styles = createStyles({
 		minHeight: '100vh',
 	},
 	drawer: {
-		width: 185,
+		width: navigatorWidth,
 		flexShrink: 0,
 	},
 	notNavShift: {
@@ -133,7 +134,7 @@ export const styles = createStyles({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen
 		}),
-		marginLeft: 185,
+		marginLeft: navigatorWidth,
 	},
 	notNavSteady: {
 		transition: theme.transitions.create(['margin'], {
