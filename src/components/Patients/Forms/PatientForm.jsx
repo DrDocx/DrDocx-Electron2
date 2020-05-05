@@ -27,6 +27,10 @@ class PatientForm extends Component {
         this.setState({patient: newPatientState});
     };
 
+    setFvgState = (fieldId, newValue) => {
+
+    };
+
     savePatient = () => {
         if (this.state.patientId == null) {
             PatientsService.createPatient(this.state.patient).then((response) => {

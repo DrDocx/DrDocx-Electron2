@@ -8,6 +8,7 @@ export const fieldsApiUrl = fullUrl("/field");
 export const fieldApiUrl = (id) => idUrl(fieldsApiUrl, id);
 export const fieldGroupsApiUrl = fullUrl("/fieldGroup");
 export const fieldGroupApiUrl = (id) => idUrl(fieldGroupsApiUrl, id);
+export const fieldGroupDefaultsApiUrl = `${fieldGroupsApiUrl}/default`;
 export const fieldValueGroupsApiUrl = fullUrl("/fieldValueGroup");
 export const fieldValueGroupApiUrl = (id) => idUrl(fieldValueGroupsApiUrl, id);
 export const testsApiUrl = fullUrl("/test");
