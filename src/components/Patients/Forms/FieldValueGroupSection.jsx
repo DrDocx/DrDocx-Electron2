@@ -12,8 +12,8 @@ class FieldValueGroupSection extends Component {
 }
 
 FieldValueGroupSection.propTypes = {
-    fieldGroup: PropTypes.object.isRequired,
-    fieldValueGroup:
+    fieldValueGroup: PropTypes.object.isRequired,
+    setFvgState: PropTypes.func.isRequired
 };
 
 export default FieldValueGroupSection;

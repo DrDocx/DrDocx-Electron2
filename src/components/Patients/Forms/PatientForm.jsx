@@ -3,9 +3,8 @@ import * as PropTypes from 'prop-types';
 import PatientsService from "../../../services/PatientsService/PatientsService";
 import {withRouter} from "react-router-dom";
 import update from 'immutability-helper';
-import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
 import Patient from "../../../models/Patient";
-import {TextField} from "@material-ui/core";
+import {TextField, Container, Typography, Grid} from "@material-ui/core";
 import FieldValueGroup from "../../../models/FieldValueGroup";
 
 class PatientForm extends Component {
@@ -42,9 +41,14 @@ class PatientForm extends Component {
 
     render() {
         return (
-            <Fragment>
-                <TextField id="standard-basic" label="Name"/>
-            </Fragment>
+            <Container>
+                <Typography variant="h5" align="left">New Patient</Typography>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField id="standard-basic" label="Name"/>
+                    </Grid>
+                </Grid>
+            </Container>
         );
     }
 }

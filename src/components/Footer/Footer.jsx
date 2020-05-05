@@ -6,6 +6,7 @@ class Footer extends Component {
     render() {
         return (
             <footer>
+                <br/>
                 <Typography variant="body2" color="textSecondary" align="center">
                     {'Copyright © '}
                     <Link color="inherit" href="https://github.com/DrDocx">

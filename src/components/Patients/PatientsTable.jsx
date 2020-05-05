@@ -8,7 +8,7 @@ class PatientsTable extends Component {
             <div>
                 <h1>Patients table</h1>
                 {this.props.patients.map((patient) => {
-                    return <Link to={"/patients/" + patient.id}>{patient.name}</Link>;
+                    return <Link to={"/patients/" + patient.id}>{patient.name + " "}</Link>;
                 })}
             </div>
         );
