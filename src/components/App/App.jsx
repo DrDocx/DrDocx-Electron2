@@ -40,7 +40,7 @@ class App extends Component {
 					<Navigator open={this.state.navigatorOpen} toggleNavigator={this.toggleNavigator} activeTab={'Patients'} switchTab={this.setTitle} />
 					<div className={clsx(classes.notNavShift, !this.state.navigatorOpen && classes.notNavSteady)}>
 						<Main />
-						<Footer />
+						<Footer className={classes.footer} />
 					</div>
 				</div>
 			</ThemeProvider>

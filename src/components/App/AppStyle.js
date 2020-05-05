@@ -146,11 +146,9 @@ export const styles = createStyles({
 	main: {
 		flex: 1,
 		padding: theme.spacing(6, 4),
-		background: '#eaeff1',
 	},
 	footer: {
-		padding: theme.spacing(2),
-		background: '#eaeff1',
+		padding: theme.spacing(3),
 	},
 });
 
