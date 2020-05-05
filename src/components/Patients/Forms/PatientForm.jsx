@@ -5,6 +5,7 @@ import {withRouter} from "react-router-dom";
 import update from 'immutability-helper';
 import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
 import Patient from "../../../models/Patient";
+import {TextField} from "@material-ui/core";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -19,17 +20,17 @@ class PatientForm extends Component {
     }
 
     newFieldValueGroup = (fieldGroupId) => {
-        FieldVa
+
     };
 
     savePatient = () => {
-        if (this.state.patientId === 0) {
+        if (this.state.patientId == null) {
             PatientsService.createPatient(this.state.patient).then((response) => {
                 this.props.history.push(`/patients/${response.id}`);
             });
         }
         else {
-            PatientsService.updatePatient(this.state.patient.id, this.state.patient).then((response) => {
+            PatientsService.updatePatient(this.state.patientId, this.state.patient).then((response) => {
                this.props.history.push(`/patients/${response.id}`)
             });
         }
@@ -38,7 +39,7 @@ class PatientForm extends Component {
     render() {
         return (
             <Fragment>
-
+                <TextField id="standard-basic" label="Name" />
             </Fragment>
         );
     }
