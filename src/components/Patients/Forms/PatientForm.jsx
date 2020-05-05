@@ -6,21 +6,26 @@ import update from 'immutability-helper';
 import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
 import Patient from "../../../models/Patient";
 import {TextField} from "@material-ui/core";
+import FieldValueGroup from "../../../models/FieldValueGroup";
 
 class PatientForm extends Component {
     constructor(props) {
         super(props);
         if (this.props.patient != null) {
             this.state = {patient: new Patient(this.props.patient)}
-        }
-        else {
+        } else {
             const patient = Patient.newPatient();
             this.state = {patient: patient};
         }
     }
 
     newFieldValueGroup = (fieldGroupId) => {
-
+        // May require a promise using then
+        const fvg = FieldValueGroup.newFieldValueGroup(fieldGroupId);
+        const newPatientState = update(this.state.patient, {
+           fieldValueGroups: {$push: [fvg]}
+        });
+        this.setState({patient: newPatientState});
     };
 
     savePatient = () => {
@@ -28,10 +33,9 @@ class PatientForm extends Component {
             PatientsService.createPatient(this.state.patient).then((response) => {
                 this.props.history.push(`/patients/${response.id}`);
             });
-        }
-        else {
+        } else {
             PatientsService.updatePatient(this.state.patientId, this.state.patient).then((response) => {
-               this.props.history.push(`/patients/${response.id}`)
+                this.props.history.push(`/patients/${response.id}`)
             });
         }
     };
@@ -39,7 +43,7 @@ class PatientForm extends Component {
     render() {
         return (
             <Fragment>
-                <TextField id="standard-basic" label="Name" />
+                <TextField id="standard-basic" label="Name"/>
             </Fragment>
         );
     }

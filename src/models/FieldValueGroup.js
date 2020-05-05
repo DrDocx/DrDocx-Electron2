@@ -24,3 +24,5 @@ class FieldValueGroup {
         return null;
     }
 }
+
+export default FieldValueGroup;
