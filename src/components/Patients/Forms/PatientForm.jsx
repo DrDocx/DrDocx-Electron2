@@ -10,6 +10,7 @@ import FieldValueGroup from "../../../models/FieldValueGroup";
 class PatientForm extends Component {
     constructor(props) {
         super(props);
+        this.state = {patient: this.props.patient};
         if (this.props.patient != null) {
             this.state = {patient: new Patient(this.props.patient)}
         } else {
@@ -58,7 +59,8 @@ class PatientForm extends Component {
 }
 
 PatientForm.propTypes = {
-    patient: PropTypes.object
+    patient: PropTypes.object.isRequired,
+    savePatient: PropTypes.func.isRequired
 };
 
 export default withRouter(PatientForm);
