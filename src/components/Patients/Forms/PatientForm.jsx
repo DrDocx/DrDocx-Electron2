@@ -1,24 +1,35 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
-import PatientsService from "../../services/PatientsService/PatientsService";
+import PatientsService from "../../../services/PatientsService/PatientsService";
 import {withRouter} from "react-router-dom";
+import update from 'immutability-helper';
+import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
+import Patient from "../../../models/Patient";
 
 class PatientForm extends Component {
     constructor(props) {
         super(props);
         if (this.props.patient != null) {
-            this.state = {patientId: this.props.patient.id, patient: this.props.patient}
+            this.state = {patient: new Patient(this.props.patient)}
+        }
+        else {
+            const patient = Patient.newPatient();
+            this.state = {patient: patient};
         }
     }
 
+    newFieldValueGroup = (fieldGroupId) => {
+        FieldVa
+    };
+
     savePatient = () => {
-        if (this.state.patientId == null) {
+        if (this.state.patientId === 0) {
             PatientsService.createPatient(this.state.patient).then((response) => {
                 this.props.history.push(`/patients/${response.id}`);
             });
         }
         else {
-            PatientsService.updatePatient(this.state.patientId, this.state.patient).then((response) => {
+            PatientsService.updatePatient(this.state.patient.id, this.state.patient).then((response) => {
                this.props.history.push(`/patients/${response.id}`)
             });
         }
@@ -27,7 +38,7 @@ class PatientForm extends Component {
     render() {
         return (
             <Fragment>
-                
+
             </Fragment>
         );
     }
