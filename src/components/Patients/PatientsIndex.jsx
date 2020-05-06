@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import {Switch, Route, useRouteMatch} from 'react-router-dom';
 import PatientsTable from "./PatientsTable";
 import PatientsService from "../../services/PatientsService/PatientsService";
+import {Link} from 'react-router-dom';
 
 class PatientsIndex extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {patients: []};
+    }
+
     componentDidMount() {
         this.updatePatients();
     }
@@ -18,7 +24,8 @@ class PatientsIndex extends Component {
     render() {
         return (
             <div>
-                <PatientsTable/>
+                <Link to="/patients/new">New Patient</Link>
+                <PatientsTable patients={this.state.patients}/>
             </div>
         );
     }

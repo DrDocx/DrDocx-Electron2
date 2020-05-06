@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom'
-import { withStyles } from '@material-ui/core/styles';
+import React, {Component, Fragment} from 'react';
+import * as PropTypes from 'prop-types';
+import {withRouter, useLocation} from 'react-router-dom'
+import {withStyles} from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -16,12 +16,13 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { styles } from './NavigatorStyle.jsx'
 import logo from '../../images/logo.png';
 import clsx from 'clsx';
+import {navigatorWidth} from "../App/AppStyle";
 
 var categories = [
 	{ id: 'Patients', icon: <PeopleIcon />, route: '/patients' },
-	{ id: 'Patient Fields', icon: <InputIcon />, route: '/fields' },
+	{ id: 'Custom Fields', icon: <InputIcon />, route: '/fields' },
+	{ id: 'Tests', icon: <AssignmentIndIcon />, route: '/tests' },
 	{ id: 'Templates', icon: <PostAddIcon />, route: '/templates' },
-	{ id: 'Tests', icon: <AssignmentIndIcon />, route: '/tests' }
 ];
 
 class Navigator extends React.Component {
@@ -32,7 +33,6 @@ class Navigator extends React.Component {
 			location: this.props.location.pathname,
 			activeTab: this.props.activeTab
 		}
-		console.log(this.props.location.pathname);
 	}
 
 	setActiveTab = (newActiveTab) => {
@@ -47,7 +47,7 @@ class Navigator extends React.Component {
 			<Drawer
 				open={this.props.open}
 				onClose={this.props.toggleNavigator}
-				PaperProps={{ style: { width: 185 } }}
+				PaperProps={{ style: { width: navigatorWidth } }}
 				variant="persistent"
 			>
 				<ListItem className={clsx(classes.itemCategory)}>

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import {Switch, Route, useRouteMatch} from 'react-router-dom';
 import PatientsIndex from "./PatientsIndex";
 import Patient from "./Patient";
-import NewPatient from "./NewPatient";
+import NewPatient from "./Forms/NewPatient";
 
 class Patients extends Component {
 

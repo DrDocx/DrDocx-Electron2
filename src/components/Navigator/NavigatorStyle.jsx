@@ -22,7 +22,7 @@ export const styles = (theme) =>
       paddingBottom: theme.spacing(2),
     },
     itemActiveItem: {
-      color: '#dcae96',
+      color: '#49b2fb',
     },
     itemPrimary: {
       fontSize: 'inherit',

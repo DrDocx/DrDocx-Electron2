@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import {Switch, Route, useRouteMatch, useParams} from 'react-router-dom';
 import PatientsService from '../../services/PatientsService/PatientsService';
 import PatientsIndex from "./PatientsIndex";
 import ShowPatient from "./ShowPatient";
-import EditPatient from "./EditPatient";
+import EditPatient from "./Forms/EditPatient";
 
 class Patient extends Component {
     constructor(props) {
@@ -23,14 +23,14 @@ class Patient extends Component {
     };
 
     render() {
-        const matchPath = this.props.match.patch;
+        const matchPath = this.props.match.path;
         return (
             <Switch>
                 <Route exact path={matchPath}>
                     <ShowPatient patient={this.state.patient}/>
                 </Route>
                 <Route path={`${matchPath}/edit`}>
-                    <EditPatient patient={this.state.patient}/>
+                    <EditPatient patient={this.state.patient} updatePatient={this.updatePatient}/>
                 </Route>
             </Switch>
         );

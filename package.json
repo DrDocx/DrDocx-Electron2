@@ -1,5 +1,5 @@
 {
-  "name": "DrDocx",
+  "name": "drdocx-electron",
   "version": "0.1.0",
   "private": true,
   "main": "public/electron.js",
@@ -14,7 +14,9 @@
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
     "electron-is-dev": "^1.2.0",
+    "immutability-helper": "^3.0.2",
     "material-table": "^1.57.2",
+    "notistack": "^0.9.11",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
