@@ -30,7 +30,7 @@ class Patient extends Component {
                     <ShowPatient patient={this.state.patient}/>
                 </Route>
                 <Route path={`${matchPath}/edit`}>
-                    <EditPatient patient={this.state.patient}/>
+                    <EditPatient patient={this.state.patient} updatePatient={this.updatePatient}/>
                 </Route>
             </Switch>
         );

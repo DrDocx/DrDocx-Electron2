@@ -1,5 +1,5 @@
 import axios from "axios";
-import {fieldValueGroupApiUrl, fieldValueGroupsApiUrl} from "../service-constants";
+import {fieldValueGroupApiUrl, fieldValueGroupsApiUrl, fieldValueGroupsBatchApiUrl} from "../service-constants";
 
 class FieldValueGroupsService {
     static async getFieldValueGroups() {
@@ -22,7 +22,9 @@ class FieldValueGroupsService {
     }
 
     static async deleteMultipleFieldValueGroups(fieldValueGroups) {
-        return axios.delete(fieldValueGroupsApiUrl, fieldValueGroups).then(response => response.data);
+        for (const fvg of fieldValueGroups) {
+            axios.delete(fieldValueGroupApiUrl(fvg.id)).then(response => response.data);
+        }
     }
 }
 

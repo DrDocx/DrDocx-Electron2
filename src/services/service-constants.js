@@ -10,6 +10,7 @@ export const fieldGroupsApiUrl = fullUrl("/fieldGroup");
 export const fieldGroupApiUrl = (id) => idUrl(fieldGroupsApiUrl, id);
 export const fieldGroupDefaultsApiUrl = `${fieldGroupsApiUrl}/default`;
 export const fieldValueGroupsApiUrl = fullUrl("/fieldValueGroup");
+export const fieldValueGroupsBatchApiUrl = `${fieldValueGroupsApiUrl}/batchDelete`;
 export const fieldValueGroupApiUrl = (id) => idUrl(fieldValueGroupsApiUrl, id);
 export const testsApiUrl = fullUrl("/test");
 export const testApiUrl = (id) => idUrl(testsApiUrl, id);
