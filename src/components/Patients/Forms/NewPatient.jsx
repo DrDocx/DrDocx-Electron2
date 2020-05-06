@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import PatientForm from "./PatientForm";
 import Patient from "../../../models/Patient";
 import PatientsService from "../../../services/PatientsService/PatientsService";
+import {withRouter} from "react-router-dom";
+import {withSnackbar} from "notistack";
 
 class NewPatient extends Component {
     constructor(props) {
@@ -23,6 +25,7 @@ class NewPatient extends Component {
     savePatient = (patient) => {
         PatientsService.createPatient(patient).then((response) => {
             this.props.history.push(`/patients/${response.id}`);
+            this.props.enqueueSnackbar("Patient successfully created!", {variant: "success"})
         });
     };
 
@@ -37,4 +40,4 @@ class NewPatient extends Component {
 
 NewPatient.propTypes = {};
 
-export default NewPatient;
+export default withRouter(withSnackbar(NewPatient));

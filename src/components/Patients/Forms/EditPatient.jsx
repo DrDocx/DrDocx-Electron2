@@ -2,11 +2,14 @@ import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import PatientForm from "./PatientForm";
 import PatientsService from "../../../services/PatientsService/PatientsService";
+import {withRouter} from "react-router-dom";
+import {withSnackbar} from "notistack";
 
 class EditPatient extends Component {
     savePatient = (patient) => {
-        PatientsService.updatePatient(patient.id, patient).then((response) => {
+        PatientsService.updatePatient(patient).then((response) => {
             this.props.history.push(`/patients/${response.id}`)
+            this.props.enqueueSnackbar("Patient successfully updated!", {variant: "success"})
         });
     };
 
@@ -23,4 +26,4 @@ EditPatient.propTypes = {
     patient: PropTypes.object.isRequired
 };
 
-export default EditPatient;
+export default withRouter(withSnackbar(EditPatient));

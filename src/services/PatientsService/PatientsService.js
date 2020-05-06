@@ -11,12 +11,16 @@ class PatientsService {
         return axios.get(patientApiUrl(id)).then(response => response.data);
     }
 
-    static async updatePatient(id, patient) {
-
+    static async updatePatient(patient) {
+        return axios.put(patientApiUrl(patient.id), patient).then(response => response.data);
     }
 
     static async createPatient(patient) {
+        return axios.post(patientsApiUrl, patient).then(response => response.data);
+    }
 
+    static async deletePatient(patient) {
+        return axios.delete(patientApiUrl(patient.id)).then(response => response.data);
     }
 }
 

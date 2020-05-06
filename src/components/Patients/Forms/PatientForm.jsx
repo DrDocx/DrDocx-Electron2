@@ -12,15 +12,24 @@ import {withSnackbar} from "notistack";
 import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
 import FieldValueGroupSection from "./FieldValueGroupSection";
 import withStyles from "@material-ui/core/styles/withStyles";
+import FieldValueGroupsService from "../../../services/FieldsService/FieldValueGroupsService";
 
 class PatientForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {patient: this.props.patient};
+        this.state = {patient: this.props.patient, groupsToRemove: []};
     }
 
     componentDidMount() {
         this.getFieldGroupOptions();
+    }
+
+    savePatient = () => {
+        if (this.state.groupsToRemove.length !== 0) {
+            // noinspection JSIgnoredPromiseFromCall
+            FieldValueGroupsService.deleteMultipleFieldValueGroups(this.state.groupsToRemove);
+        }
+        this.props.savePatient(this.state.patient);
     }
 
     getFieldGroupOptions = () => {
@@ -43,6 +52,16 @@ class PatientForm extends Component {
     };
 
     setFvgState = (fieldId, newValue) => {
+    };
+
+    removeFvg = (fieldGroupId) => {
+        var newFvgArray = this.state.patient.fieldValueGroups.filter(fvg => fvg.fieldGroupId !== fieldGroupId);
+        var fvgsToRemove = this.state.patient.fieldValueGroups.filter(fvg => fvg.id !== 0 && fvg.fieldGroupId === fieldGroupId);
+        const newState = update(this.state, {
+            patient: {fieldValueGroups: {$set: newFvgArray}},
+            groupsToRemove: {$push: fvgsToRemove}
+        });
+        this.setState(newState);
     };
 
     changeName = (event) => {
@@ -74,7 +93,7 @@ class PatientForm extends Component {
                     {this.state.patient.fieldValueGroups.map(fvg =>
                         <Fragment>
                             <Grid item xs={12}>
-                                <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.setFvgState} />
+                                <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.setFvgState} removeFvg={this.removeFvg} />
                             </Grid>
                         </Fragment>
                     )}
@@ -84,7 +103,7 @@ class PatientForm extends Component {
                                        createFvg={this.newFieldValueGroup}/>}
                     </Grid>
                     <Grid item xs={12}>
-                        <Button onClick={() => this.props.savePatient(this.state.patient)} variant="contained" color="primary">{savePatientStr}</Button>
+                        <Button onClick={() => this.savePatient()} variant="contained" color="primary">{savePatientStr}</Button>
                     </Grid>
                 </Grid>
             </Container>

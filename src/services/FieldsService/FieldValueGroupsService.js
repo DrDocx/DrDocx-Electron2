@@ -10,12 +10,19 @@ class FieldValueGroupsService {
         return axios.get(fieldValueGroupApiUrl(id)).then(response => response.data);
     }
 
-    static async updateFieldValueGroup(id, fieldValueGroup) {
+    static async updateFieldValueGroup(fieldValueGroup) {
 
     }
 
     static async createFieldValueGroup(fieldValueGroup) {
+    }
 
+    static async deleteFieldValueGroup(fieldValueGroup) {
+        return axios.delete(fieldValueGroupApiUrl(fieldValueGroup.id)).then(response => response.data);
+    }
+
+    static async deleteMultipleFieldValueGroups(fieldValueGroups) {
+        return axios.delete(fieldValueGroupsApiUrl, fieldValueGroups).then(response => response.data);
     }
 }
 
