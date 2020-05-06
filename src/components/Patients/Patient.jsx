@@ -23,7 +23,7 @@ class Patient extends Component {
     };
 
     render() {
-        const matchPath = this.props.match.patch;
+        const matchPath = this.props.match.path;
         return (
             <Switch>
                 <Route exact path={matchPath}>

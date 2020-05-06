@@ -5,6 +5,20 @@ import Patient from "../../../models/Patient";
 import PatientsService from "../../../services/PatientsService/PatientsService";
 
 class NewPatient extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {ready: false};
+    }
+
+    componentDidMount() {
+        this.newPatient();
+    }
+
+    newPatient = () => {
+        Patient.newPatient().then((patient) => {
+            this.setState({patient: patient, ready: true});
+        });
+    };
 
     savePatient = (patient) => {
         PatientsService.createPatient(patient).then((response) => {
@@ -13,10 +27,9 @@ class NewPatient extends Component {
     };
 
     render() {
-        const patient = Patient.newPatient();
         return (
             <Fragment>
-                <PatientForm patient={patient} savePatient={this.savePatient} />
+                {this.state.ready && <PatientForm patient={this.state.patient} savePatient={this.savePatient}/>}
             </Fragment>
         );
     }

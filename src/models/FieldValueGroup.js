@@ -9,19 +9,32 @@ class FieldValueGroup {
         this.fieldValues = fieldValueGroup.fieldValues;
     }
 
-    static newFieldValueGroup(fieldGroupId) {
-        FieldGroupsService.getFieldGroup(fieldGroupId).then((fieldGroup) => {
-            const fieldValues = [];
-            for (const field of fieldGroup.fields) {
-                fieldValues.push(new FieldValue(field));
+    static defaultFieldValueGroups() {
+        const fieldValueGroups = [];
+        return FieldGroupsService.getDefaultFieldGroups().then((fieldGroups) => {
+            for (const fieldGroup of fieldGroups) {
+                fieldValueGroups.push(this.constructFieldValueGroup(fieldGroup));
             }
-            return new FieldValueGroup({
-                id: 0,
-                fieldGroupId: fieldGroupId,
-                fieldValues: fieldValues
-            });
+            return fieldValueGroups;
         });
-        return null;
+    }
+
+    static newFieldValueGroup(fieldGroupId) {
+        return FieldGroupsService.getFieldGroup(fieldGroupId).then((fieldGroup) => {
+            return this.constructFieldValueGroup(fieldGroup);
+        });
+    }
+
+    static constructFieldValueGroup(fieldGroup) {
+        const fieldValues = [];
+        for (const field of fieldGroup.fields) {
+            fieldValues.push(new FieldValue(field));
+        }
+        return new FieldValueGroup({
+            id: 0,
+            fieldGroupId: fieldGroup.id,
+            fieldValues: fieldValues
+        });
     }
 }
 

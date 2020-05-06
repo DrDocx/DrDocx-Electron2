@@ -13,7 +13,7 @@ class EditPatient extends Component {
     render() {
         return (
             <Fragment>
-                <PatientForm patient={this.props.patient} savePatient={this.savePatient} />
+                {this.props.patient && <PatientForm patient={this.props.patient} savePatient={this.savePatient} />}
             </Fragment>
         );
     }

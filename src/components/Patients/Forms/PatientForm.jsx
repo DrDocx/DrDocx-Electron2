@@ -6,8 +6,9 @@ import Patient from "../../../models/Patient";
 import {TextField, Container, Typography, Grid, Select, FormControl, MenuItem, InputLabel} from "@material-ui/core";
 import FieldValueGroup from "../../../models/FieldValueGroup";
 import Button from "@material-ui/core/Button";
-import {formStyles} from "../../Form/FormStyles";
+import {patientFormStyles} from "./PatientFormStyles";
 import AddFieldGroup from "./AddFieldGroup";
+import {withSnackbar} from "notistack";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -16,6 +17,9 @@ class PatientForm extends Component {
     }
 
     newFieldValueGroup = (fieldGroupId) => {
+        if (fieldGroupId === 0) {
+            this.props.enqueueSnackbar("You must select a field group to add.", {variant: "error"})
+        }
         // May require a promise using then
         const fvg = FieldValueGroup.newFieldValueGroup(fieldGroupId);
         const newPatientState = update(this.state.patient, {
@@ -28,26 +32,26 @@ class PatientForm extends Component {
     };
 
     render() {
-        const savePatientStr = this.state.patient.id === 0 ? "Create Patient" : "Save Patient"
+        const headerStr = this.state.patient.id === 0 ? "New Patient" : "Update Patient";
+        const savePatientStr = this.state.patient.id === 0 ? "Create Patient" : "Save Patient";
         return (
             <Container>
                 <Grid
                     container
                     direction="column"
-                    justify="left"
                     alignItems="flex-start"
                     alignContent="flex-start"
                     spacing={2}
                 >
                     <br/>
                     <Grid item xs={12}>
-                        <Typography variant="h5" align="left">New Patient</Typography>
+                        <Typography variant="h5" align="left">{headerStr}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField id="standard-basic" label="Name"/>
                     </Grid>
                     <Grid item xs={12}>
-                        <AddFieldGroup />
+                        <AddFieldGroup createFvg={this.newFieldValueGroup} />
                     </Grid>
                     <Grid item xs={12}>
                         <Button variant="contained" color="primary">{savePatientStr}</Button>
@@ -63,4 +67,4 @@ PatientForm.propTypes = {
     savePatient: PropTypes.func.isRequired
 };
 
-export default withRouter(PatientForm);
+export default withRouter(withSnackbar(PatientForm));
