@@ -9,11 +9,24 @@ import Button from "@material-ui/core/Button";
 import {patientFormStyles} from "./PatientFormStyles";
 import AddFieldGroup from "./AddFieldGroup";
 import {withSnackbar} from "notistack";
+import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
 
 class PatientForm extends Component {
     constructor(props) {
         super(props);
         this.state = {patient: this.props.patient};
+    }
+
+    componentDidMount() {
+        this.getFieldGroupOptions();
+    }
+
+    getFieldGroupOptions = () => {
+        FieldGroupsService.getFieldGroups().then(fieldGroups => {
+            const existingFieldGroupIds = this.state.patient.fieldValueGroups.map(fvg => fvg.fieldGroupId);
+            const fieldGroupOptions = fieldGroups.filter(fieldGroup => !existingFieldGroupIds.includes(fieldGroup.id));
+            this.setState({fieldGroupOptions: fieldGroupOptions});
+        });
     }
 
     newFieldValueGroup = (fieldGroupId) => {
@@ -51,7 +64,9 @@ class PatientForm extends Component {
                         <TextField id="standard-basic" label="Name"/>
                     </Grid>
                     <Grid item xs={12}>
-                        <AddFieldGroup createFvg={this.newFieldValueGroup} />
+                        {this.state.fieldGroupOptions &&
+                        <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
+                                       createFvg={this.newFieldValueGroup}/>}
                     </Grid>
                     <Grid item xs={12}>
                         <Button variant="contained" color="primary">{savePatientStr}</Button>
