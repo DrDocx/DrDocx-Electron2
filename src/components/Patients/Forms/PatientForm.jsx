@@ -10,6 +10,8 @@ import {patientFormStyles} from "./PatientFormStyles";
 import AddFieldGroup from "./AddFieldGroup";
 import {withSnackbar} from "notistack";
 import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
+import FieldValueGroupSection from "./FieldValueGroupSection";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -44,6 +46,13 @@ class PatientForm extends Component {
     setFvgState = (fieldId, newValue) => {
     };
 
+    changeName = (event) => {
+        const newPatientState = update(this.state.patient, {
+            name: {$set: event.target.value}
+        });
+        this.setState({patient: newPatientState});
+    };
+
     render() {
         const headerStr = this.state.patient.id === 0 ? "New Patient" : "Update Patient";
         const savePatientStr = this.state.patient.id === 0 ? "Create Patient" : "Save Patient";
@@ -61,15 +70,22 @@ class PatientForm extends Component {
                         <Typography variant="h5" align="left">{headerStr}</Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField id="standard-basic" label="Name"/>
+                        <TextField onChange={event => this.changeName(event)} value={this.state.patient.name} label="Name"/>
                     </Grid>
+                    {this.state.patient.fieldValueGroups.map(fvg =>
+                        <Fragment>
+                            <Grid item xs={12}>
+                                <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.setFvgState} />
+                            </Grid>
+                        </Fragment>
+                    )}
                     <Grid item xs={12}>
                         {this.state.fieldGroupOptions &&
                         <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
                                        createFvg={this.newFieldValueGroup}/>}
                     </Grid>
                     <Grid item xs={12}>
-                        <Button variant="contained" color="primary">{savePatientStr}</Button>
+                        <Button onClick={() => this.props.savePatient(this.state.patient)} variant="contained" color="primary">{savePatientStr}</Button>
                     </Grid>
                 </Grid>
             </Container>
@@ -83,3 +99,4 @@ PatientForm.propTypes = {
 };
 
 export default withRouter(withSnackbar(PatientForm));
+

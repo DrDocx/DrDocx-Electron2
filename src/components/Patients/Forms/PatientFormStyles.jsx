@@ -14,5 +14,15 @@ export const patientFormStyles = (theme) => ({
     },
     fieldGroupButton: {
         maxHeight: 40
+    },
+    fieldGroupCard: {
+        minWidth: 400
+    },
+    fieldGroupName: {
+        textAlign: 'left'
+    },
+    fieldGroupDescription: {
+        fontSize: 14,
+        textAlign: 'left'
     }
 });

@@ -5,6 +5,7 @@ import FieldValue from "./FieldValue";
 class FieldValueGroup {
     constructor(fieldValueGroup) {
         this.id = fieldValueGroup.id;
+        this.fieldGroup = fieldValueGroup.fieldGroup;
         this.fieldGroupId = fieldValueGroup.fieldGroupId;
         this.fieldValues = fieldValueGroup.fieldValues;
     }
@@ -32,6 +33,7 @@ class FieldValueGroup {
         }
         return new FieldValueGroup({
             id: 0,
+            fieldGroup: fieldGroup,
             fieldGroupId: fieldGroup.id,
             fieldValues: fieldValues
         });
