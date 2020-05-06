@@ -20,7 +20,7 @@ class RemoveFvgDialog extends Component {
                     <DialogTitle id="alert-dialog-title">{`Are you sure you want to delete group "${this.props.groupName}"?`}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            This action cannot be undone once the patient is saved.
+                            This action cannot be undone.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
