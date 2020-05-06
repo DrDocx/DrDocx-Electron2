@@ -13,10 +13,6 @@ class AddFieldGroup extends Component {
         this.state = {selectedFieldGroupId: 0}
     }
 
-    createFvg = () => {
-
-    }
-
     selectedFieldGroupChanged = (event) => {
         this.setState({selectedFieldGroupId: event.target.value});
     }
@@ -37,7 +33,7 @@ class AddFieldGroup extends Component {
                     <Button style={{verticalAlign: 'bottom'}}
                             variant="contained"
                             className={classes.fieldGroupButton}
-                            onClick={() => {return this.props.createFvg(this.state.selectedFieldGroupId)}}
+                            onClick={() => this.props.createFvg(this.state.selectedFieldGroupId)}
                     >
                         Add Field Group</Button>
                 </div>

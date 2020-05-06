@@ -31,12 +31,11 @@ class PatientForm extends Component {
         });
     }
 
-    newFieldValueGroup = (fieldGroupId) => {
+    newFieldValueGroup = async(fieldGroupId) => {
         if (fieldGroupId === 0) {
             this.props.enqueueSnackbar("You must select a field group to add.", {variant: "error"})
         }
-        // May require a promise using then
-        const fvg = FieldValueGroup.newFieldValueGroup(fieldGroupId);
+        const fvg = await FieldValueGroup.newFieldValueGroup(fieldGroupId);
         const newPatientState = update(this.state.patient, {
             fieldValueGroups: {$push: [fvg]}
         });

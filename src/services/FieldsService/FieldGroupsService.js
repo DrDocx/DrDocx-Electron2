@@ -15,7 +15,7 @@ class FieldGroupsService {
     }
 
     static async getFieldGroup(id) {
-        return axios.get(this.fieldGroupUrl(id)).then(response => response.data);
+        return axios.get(fieldGroupApiUrl(id)).then(response => response.data);
     }
 
     static async updateFieldGroup(id, fieldGroup) {
