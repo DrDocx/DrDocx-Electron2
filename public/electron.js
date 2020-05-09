@@ -15,7 +15,25 @@ function createWindow() {
         //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
         mainWindow.webContents.openDevTools();
     }
+    if (process.platform === 'win32') {
+        runWinApi();
+    }
+
     mainWindow.on('closed', () => mainWindow = null);
+}
+
+function runWinApi() {
+    var child = require('child_process').execFile;
+    var dirPath = app.getAppPath();
+    var apiPath = path.join(dirPath, 'api-bin/DrDocx-API.exe');
+
+    child(apiPath, function(err, data) {
+        if(err){
+            console.error(err);
+            return;
+        }
+        console.log(data.toString());
+    });
 }
 
 app.on('ready', createWindow);
@@ -30,4 +48,8 @@ app.on('activate', () => {
     if (mainWindow === null) {
         createWindow();
     }
+});
+
+app.on('before-quit', () => {
+    // TODO: Kill api process
 });
