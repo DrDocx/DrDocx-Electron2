@@ -10,6 +10,14 @@ import {patientFormStyles} from "./PatientFormStyles";
 
 class FieldValueForm extends Component {
 
+    fieldTextValue() {
+        return this.props.fieldValue.fieldTextValue;
+    }
+
+    fieldName() {
+        return this.props.fieldValue.field.name;
+    }
+
     updateFieldTextValue = (event) => {
         let value = '';
         if (this.props.fieldValue.field.type === 'Date') {
@@ -27,8 +35,8 @@ class FieldValueForm extends Component {
         return (
             <Fragment>
                 <TextField onChange={event => this.updateFieldTextValue(event)}
-                           value={this.props.fieldValue.fieldTextValue}
-                           label={this.props.fieldValue.field.name}/>
+                           value={this.fieldTextValue()}
+                           label={this.fieldName()}/>
             </Fragment>
         );
     }
@@ -38,11 +46,11 @@ class FieldValueForm extends Component {
             <Fragment>
                 <TextField
                     id="outlined-multiline-static"
-                    label={this.props.fieldValue.field.name}
+                    label={this.fieldName()}
                     className={this.props.classes.paragraphFieldValue}
                     multiline
                     rows={4}
-                    value={this.props.fieldValue.fieldTextValue}
+                    value={this.fieldTextValue()}
                     onChange={event => this.updateFieldTextValue(event)}
                     variant="outlined"
                 />
@@ -51,14 +59,14 @@ class FieldValueForm extends Component {
     }
 
     renderDate() {
-        let date = new Date(this.props.fieldValue.fieldTextValue);
+        let date = new Date(this.fieldTextValue());
         if (isNaN(date)) {
             date = new Date();
         }
         return (
             <MuiPickersUtilsProvider utils={MomentUtils}>
                 <DatePicker
-                    label={this.props.fieldValue.field.name}
+                    label={this.fieldName()}
                     value={date}
                     onChange={event => this.updateFieldTextValue(event)}
                     openTo="year"
