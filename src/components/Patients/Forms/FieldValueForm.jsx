@@ -2,10 +2,11 @@ import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import TextField from "@material-ui/core/TextField";
 import {DatePicker} from "@material-ui/pickers";
-import {Grid} from "@material-ui/core";
+import {Grid, withStyles} from "@material-ui/core";
 import update from 'immutability-helper';
 import MomentUtils from "@date-io/moment";
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
+import {patientFormStyles} from "./PatientFormStyles";
 
 class FieldValueForm extends Component {
 
@@ -22,22 +23,23 @@ class FieldValueForm extends Component {
         this.props.setFieldValue(newFvState);
     }
 
-    renderSmallText() {
+    renderText() {
         return (
             <Fragment>
                 <TextField onChange={event => this.updateFieldTextValue(event)}
                            value={this.props.fieldValue.fieldTextValue}
-                           label="Name"/>
+                           label={this.props.fieldValue.field.name}/>
             </Fragment>
         );
     }
 
-    renderLargeText() {
+    renderParagraph() {
         return (
             <Fragment>
                 <TextField
                     id="outlined-multiline-static"
-                    label="Multiline"
+                    label={this.props.fieldValue.field.name}
+                    className={this.props.classes.paragraphFieldValue}
                     multiline
                     rows={4}
                     value={this.props.fieldValue.fieldTextValue}
@@ -67,13 +69,13 @@ class FieldValueForm extends Component {
 
     render() {
         let fieldType = this.props.fieldValue.field.type;
-        if (fieldType === 'LargeText') {
-            return this.renderLargeText();
+        if (fieldType === 'Paragraph') {
+            return this.renderParagraph();
         } else if (fieldType === 'Date') {
             return this.renderDate();
         }
-        // 'SmallText' or unrecognized type renders as a basic input field
-        return this.renderSmallText();
+        // 'Text' or unrecognized type renders as a basic input field
+        return this.renderText();
     }
 }
 
@@ -82,4 +84,4 @@ FieldValueForm.propTypes = {
     fieldValue: PropTypes.object.isRequired
 };
 
-export default FieldValueForm;
+export default withStyles(patientFormStyles)(FieldValueForm);

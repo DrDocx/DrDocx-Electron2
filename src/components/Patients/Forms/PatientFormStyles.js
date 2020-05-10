@@ -16,7 +16,8 @@ export const patientFormStyles = (theme) => ({
         maxHeight: 40
     },
     fieldGroupCard: {
-        minWidth: 400
+        minWidth: 400,
+        width: 600
     },
     fieldGroupName: {
         textAlign: 'left'
@@ -24,5 +25,9 @@ export const patientFormStyles = (theme) => ({
     fieldGroupDescription: {
         fontSize: 14,
         textAlign: 'left'
+    },
+    paragraphFieldValue: {
+        minWidth: 300,
+        width: 500
     }
 });
