@@ -9,6 +9,8 @@ import {withStyles, ThemeProvider} from "@material-ui/core";
 import {appTheme, styles} from "./AppStyle"
 import clsx from 'clsx';
 import {SnackbarProvider} from "notistack";
+import MomentUtils from '@date-io/moment';
+import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
 
 class App extends Component {
     constructor(props) {
@@ -27,6 +29,7 @@ class App extends Component {
         ));
     };
 
+    // TODO: There has to be a way to refactor all these providers so we don't just nest these infinitely
     render() {
         const {classes} = this.props;
         return (

@@ -5,6 +5,7 @@
   "main": "public/electron.js",
   "homepage": "./",
   "dependencies": {
+    "@date-io/moment": "1.x",
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
@@ -16,6 +17,7 @@
     "electron-is-dev": "^1.2.0",
     "immutability-helper": "^3.0.2",
     "material-table": "^1.57.2",
+    "moment": "^2.25.3",
     "notistack": "^0.9.11",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -51,6 +53,9 @@
     "files": [
       "public/",
       "build/"
+    ],
+    "extraFiles": [
+      "api-bin"
     ]
   },
   "browserslist": {
@@ -60,9 +65,7 @@
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 chrome version"
     ]
   }
 }

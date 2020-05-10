@@ -10,7 +10,7 @@ import {patientFormStyles} from "./PatientFormStyles";
 import AddFieldGroup from "./AddFieldGroup";
 import {withSnackbar} from "notistack";
 import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
-import FieldValueGroupSection from "./FieldValueGroupSection";
+import FieldValueGroupSection from "./FieldValueGroupForm";
 import withStyles from "@material-ui/core/styles/withStyles";
 import FieldValueGroupsService from "../../../services/FieldsService/FieldValueGroupsService";
 
@@ -40,7 +40,7 @@ class PatientForm extends Component {
         });
     }
 
-    newFieldValueGroup = async(fieldGroupId) => {
+    newFvg = async(fieldGroupId) => {
         if (fieldGroupId === 0) {
             this.props.enqueueSnackbar("You must select a field group to add.", {variant: "error"})
         }
@@ -51,7 +51,15 @@ class PatientForm extends Component {
         this.setState({patient: newPatientState});
     };
 
-    setFvgState = (fieldId, newValue) => {
+    modifyFvg = (fieldValueGroup) => {
+        const fvgIndex = this.state.patient.fieldValueGroups.findIndex(fvg => fvg.fieldGroupId === fieldValueGroup.fieldGroupId);
+        if (fvgIndex < 0) {
+            return;
+        }
+        const newPatientState = update(this.state.patient, {
+            fieldValueGroups: {$splice: [[fvgIndex, 1, fieldValueGroup]]}
+        });
+        this.setState({patient: newPatientState});
     };
 
     removeFvg = (fieldGroupId) => {
@@ -93,14 +101,14 @@ class PatientForm extends Component {
                     {this.state.patient.fieldValueGroups.map(fvg =>
                         <Fragment>
                             <Grid item xs={12}>
-                                <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.setFvgState} removeFvg={this.removeFvg} />
+                                <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.modifyFvg} removeFvg={this.removeFvg} />
                             </Grid>
                         </Fragment>
                     )}
                     <Grid item xs={12}>
                         {this.state.fieldGroupOptions &&
                         <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
-                                       createFvg={this.newFieldValueGroup}/>}
+                                       createFvg={this.newFvg}/>}
                     </Grid>
                     <Grid item xs={12}>
                         <Button onClick={() => this.savePatient()} variant="contained" color="primary">{savePatientStr}</Button>

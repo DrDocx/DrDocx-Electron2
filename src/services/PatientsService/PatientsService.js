@@ -1,5 +1,5 @@
 import axios from "axios";
-import {patientApiUrl, patientsApiUrl} from "../service-constants";
+import {patientApiUrl, patientsApiUrl} from "../service-routes";
 
 class PatientsService {
 
