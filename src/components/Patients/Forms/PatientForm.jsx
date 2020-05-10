@@ -44,11 +44,13 @@ class PatientForm extends Component {
         if (fieldGroupId === 0) {
             this.props.enqueueSnackbar("You must select a field group to add.", {variant: "error"})
         }
+        const fvIndex = this.state.fieldGroupOptions.findIndex(fg => fg.id === fieldGroupId);
         const fvg = await FieldValueGroup.newFieldValueGroup(fieldGroupId);
-        const newPatientState = update(this.state.patient, {
-            fieldValueGroups: {$push: [fvg]}
+        const newState = update(this.state, {
+            patient: {fieldValueGroups: {$push: [fvg]}},
+            fieldGroupOptions: {$splice: [[fvIndex, 1]]}
         });
-        this.setState({patient: newPatientState});
+        this.setState(newState);
     };
 
     modifyFvg = (fieldValueGroup) => {
@@ -63,11 +65,13 @@ class PatientForm extends Component {
     };
 
     removeFvg = (fieldGroupId) => {
-        var newFvgArray = this.state.patient.fieldValueGroups.filter(fvg => fvg.fieldGroupId !== fieldGroupId);
-        var fvgsToRemove = this.state.patient.fieldValueGroups.filter(fvg => fvg.id !== 0 && fvg.fieldGroupId === fieldGroupId);
+        const fvgToRemoveIndex = this.state.patient.fieldValueGroups.findIndex(fvg => fvg.fieldGroupId === fieldGroupId);
+        const fvgToRemove = this.state.patient.fieldValueGroups[fvgToRemoveIndex];
+        const fvgToDeleteFromDb = fvgToRemove.id !== 0 ? [fvgToRemove] : [];
         const newState = update(this.state, {
-            patient: {fieldValueGroups: {$set: newFvgArray}},
-            groupsToRemove: {$push: fvgsToRemove}
+            patient: {fieldValueGroups: {$splice: [[fvgToRemoveIndex, 1]]}},
+            groupsToRemove: {$push: fvgToDeleteFromDb},
+            fieldGroupOptions: {$push: [fvgToRemove.fieldGroup]}
         });
         this.setState(newState);
     };
