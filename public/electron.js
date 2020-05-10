@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -14,9 +16,6 @@ function createWindow() {
         // Open the DevTools.
         //BrowserWindow.addDevToolsExtension('<location to your react chrome extension>');
         mainWindow.webContents.openDevTools();
-    }
-    if (process.platform === 'win32') {
-        runWinApi();
     }
 
     mainWindow.on('closed', () => mainWindow = null);
@@ -36,7 +35,22 @@ function runWinApi() {
     });
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+    if (process.platform === 'win32') {
+        runWinApi();
+        axios.get('https://localhost:1211/api/ping').then((response) => {
+            if (response.status === 200) {
+                createWindow();
+            }
+        }).catch((error) => {
+            console.log(error);
+            createWindow();
+        });
+    }
+    else {
+        createWindow();
+    }
+});
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
