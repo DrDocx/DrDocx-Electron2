@@ -13,6 +13,8 @@ import FieldGroupsService from "../../../services/FieldsService/FieldGroupsServi
 import FieldValueGroupSection from "./FieldValueGroupForm";
 import withStyles from "@material-ui/core/styles/withStyles";
 import FieldValueGroupsService from "../../../services/FieldsService/FieldValueGroupsService";
+import {TitleContext} from "../../App/App";
+import MainContainer from "../../Main/MainContainer";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -40,15 +42,17 @@ class PatientForm extends Component {
         });
     }
 
-    newFvg = async(fieldGroupId) => {
+    newFvg = async (fieldGroupId) => {
         if (fieldGroupId === 0) {
             this.props.enqueueSnackbar("You must select a field group to add.", {variant: "error"})
         }
+        const fvIndex = this.state.fieldGroupOptions.findIndex(fg => fg.id === fieldGroupId);
         const fvg = await FieldValueGroup.newFieldValueGroup(fieldGroupId);
-        const newPatientState = update(this.state.patient, {
-            fieldValueGroups: {$push: [fvg]}
+        const newState = update(this.state, {
+            patient: {fieldValueGroups: {$push: [fvg]}},
+            fieldGroupOptions: {$splice: [[fvIndex, 1]]}
         });
-        this.setState({patient: newPatientState});
+        this.setState(newState);
     };
 
     modifyFvg = (fieldValueGroup) => {
@@ -63,11 +67,13 @@ class PatientForm extends Component {
     };
 
     removeFvg = (fieldGroupId) => {
-        var newFvgArray = this.state.patient.fieldValueGroups.filter(fvg => fvg.fieldGroupId !== fieldGroupId);
-        var fvgsToRemove = this.state.patient.fieldValueGroups.filter(fvg => fvg.id !== 0 && fvg.fieldGroupId === fieldGroupId);
+        const fvgToRemoveIndex = this.state.patient.fieldValueGroups.findIndex(fvg => fvg.fieldGroupId === fieldGroupId);
+        const fvgToRemove = this.state.patient.fieldValueGroups[fvgToRemoveIndex];
+        const fvgToDeleteFromDb = fvgToRemove.id !== 0 ? [fvgToRemove] : [];
         const newState = update(this.state, {
-            patient: {fieldValueGroups: {$set: newFvgArray}},
-            groupsToRemove: {$push: fvgsToRemove}
+            patient: {fieldValueGroups: {$splice: [[fvgToRemoveIndex, 1]]}},
+            groupsToRemove: {$push: fvgToDeleteFromDb},
+            fieldGroupOptions: {$push: [fvgToRemove.fieldGroup]}
         });
         this.setState(newState);
     };
@@ -83,38 +89,17 @@ class PatientForm extends Component {
         const headerStr = this.state.patient.id === 0 ? "New Patient" : "Update Patient";
         const savePatientStr = this.state.patient.id === 0 ? "Create Patient" : "Save Patient";
         return (
-            <Container>
-                <Grid
-                    container
-                    direction="column"
-                    alignItems="flex-start"
-                    alignContent="flex-start"
-                    spacing={2}
-                >
-                    <br/>
-                    <Grid item xs={12}>
-                        <Typography variant="h5" align="left">{headerStr}</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField onChange={event => this.changeName(event)} value={this.state.patient.name} label="Name"/>
-                    </Grid>
-                    {this.state.patient.fieldValueGroups.map(fvg =>
-                        <Fragment>
-                            <Grid item xs={12}>
-                                <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.modifyFvg} removeFvg={this.removeFvg} />
-                            </Grid>
-                        </Fragment>
-                    )}
-                    <Grid item xs={12}>
-                        {this.state.fieldGroupOptions &&
-                        <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
-                                       createFvg={this.newFvg}/>}
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button onClick={() => this.savePatient()} variant="contained" color="primary">{savePatientStr}</Button>
-                    </Grid>
-                </Grid>
-            </Container>
+            <MainContainer title={headerStr}>
+                <TextField onChange={event => this.changeName(event)} value={this.state.patient.name} label="Name"/>
+                {this.state.patient.fieldValueGroups.map(fvg =>
+                    <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.modifyFvg}
+                                            removeFvg={this.removeFvg}/>
+                )}
+                {this.state.fieldGroupOptions &&
+                <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
+                               createFvg={this.newFvg}/>}
+                <Button onClick={() => this.savePatient()} variant="contained" color="primary">{savePatientStr}</Button>
+            </MainContainer>
         );
     }
 }

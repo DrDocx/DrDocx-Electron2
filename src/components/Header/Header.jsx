@@ -9,7 +9,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import {withRouter} from "react-router-dom";
 
 class Header extends Component {
-
     render() {
         return (
             <Fragment>
@@ -18,9 +17,9 @@ class Header extends Component {
                         <IconButton edge="start" color="inherit" aria-label="menu" onClick={this.props.toggleNavigator}>
                             <MenuIcon/>
                         </IconButton>
-                        <Typography variant="h6">
-                            {this.props.title}
-                        </Typography>
+                        {/*<Typography variant="h6">*/}
+                        {/*    {this.props.title}*/}
+                        {/*</Typography>*/}
                     </Toolbar>
                 </AppBar>
             </Fragment>

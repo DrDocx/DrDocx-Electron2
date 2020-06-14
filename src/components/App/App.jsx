@@ -5,17 +5,20 @@ import Header from "../Header/Header";
 import Navigator from "../Navigator/Navigator";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import {withStyles, ThemeProvider} from "@material-ui/core";
+import {withStyles, ThemeProvider, Typography} from "@material-ui/core";
 import {appTheme, styles} from "./AppStyle"
 import clsx from 'clsx';
 import {SnackbarProvider} from "notistack";
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
 
+// TODO: Make this work
+export const TitleContext = React.createContext({});
+
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {title: this.props.title ?? "", navigatorOpen: false};
+        this.state = {title: this.props.title ?? "", navigatorOpen: true};
     }
 
     setTitle = (title) => {
@@ -35,20 +38,23 @@ class App extends Component {
         return (
             <ThemeProvider theme={appTheme}>
                 <SnackbarProvider maxSnack={3}>
-                    <div className="App">
-                        <div className={clsx(classes.notNavShift, !this.state.navigatorOpen && classes.notNavSteady)}>
-                            <Header
-                                title={this.state.title}
-                                toggleNavigator={this.toggleNavigator}
-                            />
+                    <TitleContext.Provider value={{setTitle: this.setTitle}}>
+                        <div className="App">
+                            <div
+                                className={clsx(classes.notNavShift, !this.state.navigatorOpen && classes.notNavSteady)}>
+                                <Header
+                                    title={this.state.title}
+                                    toggleNavigator={this.toggleNavigator}
+                                />
+                            </div>
+                            <Navigator open={this.state.navigatorOpen} toggleNavigator={this.toggleNavigator}
+                                       activeTab={'Patients'} switchTab={this.setTitle}/>
+                            <div className={clsx(classes.notNavShift, !this.state.navigatorOpen && classes.notNavSteady)}>
+                                <Main/>
+                                <Footer className={classes.footer}/>
+                            </div>
                         </div>
-                        <Navigator open={this.state.navigatorOpen} toggleNavigator={this.toggleNavigator}
-                                   activeTab={'Patients'} switchTab={this.setTitle}/>
-                        <div className={clsx(classes.notNavShift, !this.state.navigatorOpen && classes.notNavSteady)}>
-                            <Main/>
-                            <Footer className={classes.footer}/>
-                        </div>
-                    </div>
+                    </TitleContext.Provider>
                 </SnackbarProvider>
             </ThemeProvider>
         );

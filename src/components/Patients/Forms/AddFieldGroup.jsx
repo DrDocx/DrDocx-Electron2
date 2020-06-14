@@ -24,7 +24,8 @@ class AddFieldGroup extends Component {
                 <div style={{verticalAlign: 'bottom'}}>
                     <FormControl className={classes.formControl}>
                         <InputLabel>Field Group</InputLabel>
-                        <Select value={this.state.selectedFieldGroupId} onChange={event => this.selectedFieldGroupChanged(event)}>
+                        <Select value={this.state.selectedFieldGroupId}
+                                onChange={event => this.selectedFieldGroupChanged(event)}>
                             {this.props.fieldGroups.map(group =>
                                 <MenuItem value={group.id}>{group.name}</MenuItem>
                             )}
@@ -35,7 +36,8 @@ class AddFieldGroup extends Component {
                             className={classes.fieldGroupButton}
                             onClick={() => this.props.createFvg(this.state.selectedFieldGroupId)}
                     >
-                        Add Field Group</Button>
+                        Add Field Group
+                    </Button>
                 </div>
             </Fragment>
         );
