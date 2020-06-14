@@ -47,6 +47,9 @@ class PatientsTable extends Component {
         else if (actionType === 'edit') {
             this.props.history.push(`/patients/${patientId}/edit`)
         }
+        else if (actionType === 'add') {
+            this.props.history.push('/patients/new');
+        }
     };
 
     onRowDeleteClicked = (patientId) => {
@@ -78,21 +81,28 @@ class PatientsTable extends Component {
                         { title: 'Last Modified', field: 'dateModified', type: 'date' },
                     ]}
                     data={this.state.patients}
+                    onRowClick={(event, rowData) => this.onRowAction('show', rowData.id)}
                     actions={[
-                        {
-                            icon: tableIcons.PageviewIcon,
-                            tooltip: 'Show User',
-                            onClick: (event, rowData) => this.onRowAction('show', rowData.id)
-                        },
+                        // {
+                        //     icon: tableIcons.PageviewIcon,
+                        //     tooltip: 'Show Patient',
+                        //     onClick: (event, rowData) => this.onRowAction('show', rowData.id)
+                        // },
                         {
                             icon: tableIcons.Edit,
-                            tooltip: 'Edit User',
+                            tooltip: 'Edit Patient',
                             onClick: (event, rowData) => this.onRowAction('edit', rowData.id)
                         },
                         {
                             icon: tableIcons.Delete,
                             tooltip: 'Delete Patient',
                             onClick: (event, rowData) => this.onRowDeleteClicked(rowData.id)
+                        },
+                        {
+                            icon: tableIcons.Add,
+                            tooltip: 'Add Patient',
+                            isFreeAction: true,
+                            onClick: () => this.onRowAction('add', 0)
                         }
                     ]}
                     options={{
