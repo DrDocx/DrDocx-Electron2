@@ -18,7 +18,7 @@ export const TitleContext = React.createContext({});
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {title: this.props.title ?? "", navigatorOpen: false};
+        this.state = {title: this.props.title ?? "", navigatorOpen: true};
     }
 
     setTitle = (title) => {

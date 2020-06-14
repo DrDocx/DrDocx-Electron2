@@ -28,7 +28,8 @@ class ConfirmationDialog extends Component {
                             {this.props.cancelButtonText || "Cancel"}
                         </Button>
                         <Button onClick={() => this.props.confirmDelete(true)} color="secondary" autoFocus>
-                            {this.props.confirmButtonText || "Delete"}
+                            {this.props.confirmButtonText || "Del" +
+                            "ete"}
                         </Button>
                     </DialogActions>
                 </Dialog>

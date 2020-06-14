@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import MaterialTable from "material-table";
 import { forwardRef } from 'react';
 import AddBox from '@material-ui/icons/AddBox';
@@ -20,31 +20,79 @@ import Delete from '@material-ui/icons/Delete';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import PageviewIcon from '@material-ui/icons/Pageview';
+import ConfirmationDialog from "../Main/ConfirmationDialog";
+import PatientsService from "../../services/PatientsService/PatientsService";
 
 class PatientsTable extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {patients: [], patientPendingDelete: 0, deleteConfirmOpen: false}
+    }
+
+    componentDidMount() {
+        this.updatePatients();
+    }
+
+    updatePatients = () => {
+        PatientsService.getPatients().then(patientsResponse => {
+            this.setState({patients: patientsResponse});
+        });
+    };
+
+    onRowAction = (actionType, patientId) => {
+        if (actionType === 'show') {
+            this.props.history.push(`/patients/${patientId}`)
+        }
+        else if (actionType === 'edit') {
+            this.props.history.push(`/patients/${patientId}/edit`)
+        }
+    };
+
+    onRowDeleteClicked = (patientId) => {
+        this.setState({patientPendingDelete: patientId, deleteConfirmOpen: true});
+    }
+
+    onRowDeleteConfirmed = (confirmed) => {
+        const patientId = this.state.patientPendingDelete;
+        this.setState({deleteConfirmOpen: false, patientPendingDelete: 0});
+        if (!confirmed || patientId === 0) {
+            return;
+        }
+        PatientsService.deletePatient(this.state.patientPendingDelete).then(() => {
+            const newPatientsArr = this.state.patients.filter(p => p.id !== patientId);
+            this.setState({patients: newPatientsArr});
+        });
+    }
 
     render() {
         return (
             <Fragment>
+                <ConfirmationDialog open={this.state.deleteConfirmOpen} confirmDelete={this.onRowDeleteConfirmed} />
                 <MaterialTable
                     style={{minWidth: "600px", width: "auto", maxWidth: "1000px"}}
                     icons={tableIcons}
                     title=""
                     columns={[
                         { title: 'Name', field: 'name' },
-                        { title: 'Date Modified', field: 'dateModified', type: 'date' },
+                        { title: 'Last Modified', field: 'dateModified', type: 'date' },
                     ]}
-                    data={this.props.patients}
+                    data={this.state.patients}
                     actions={[
+                        {
+                            icon: tableIcons.PageviewIcon,
+                            tooltip: 'Show User',
+                            onClick: (event, rowData) => this.onRowAction('show', rowData.id)
+                        },
                         {
                             icon: tableIcons.Edit,
                             tooltip: 'Edit User',
-                            onClick: (event, rowData) => window.alert("You saved " + rowData.name)
+                            onClick: (event, rowData) => this.onRowAction('edit', rowData.id)
                         },
                         {
                             icon: tableIcons.Delete,
                             tooltip: 'Delete Patient',
-                            onClick: (event, rowData) => window.confirm("You want to delete " + rowData.name),
+                            onClick: (event, rowData) => this.onRowDeleteClicked(rowData.id)
                         }
                     ]}
                     options={{
@@ -60,7 +108,7 @@ PatientsTable.propTypes = {
     patients: PropTypes.array
 };
 
-export default PatientsTable;
+export default withRouter(PatientsTable);
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -80,5 +128,6 @@ const tableIcons = {
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
     Save: forwardRef((props, ref) => <Save {...props} ref={ref} />),
-    Delete: forwardRef((props, ref) => <Delete {...props} ref={ref} />)
+    Delete: forwardRef((props, ref) => <Delete {...props} ref={ref} />),
+    PageviewIcon: forwardRef((props, ref) => <PageviewIcon {...props} ref={ref} />),
 };
