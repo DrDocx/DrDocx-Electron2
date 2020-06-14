@@ -134,14 +134,14 @@ export const styles = createStyles({
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen
 		}),
-		marginLeft: navigatorWidth,
+		marginLeft: navigatorWidth
 	},
 	notNavSteady: {
 		transition: theme.transitions.create(['margin'], {
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen
 		}),
-		marginLeft: 0,
+		marginLeft: 0
 	},
 	main: {
 		flex: 1,

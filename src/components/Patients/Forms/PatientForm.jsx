@@ -13,6 +13,8 @@ import FieldGroupsService from "../../../services/FieldsService/FieldGroupsServi
 import FieldValueGroupSection from "./FieldValueGroupForm";
 import withStyles from "@material-ui/core/styles/withStyles";
 import FieldValueGroupsService from "../../../services/FieldsService/FieldValueGroupsService";
+import {TitleContext} from "../../App/App";
+import MainContainer from "../../Main/MainContainer";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -40,7 +42,7 @@ class PatientForm extends Component {
         });
     }
 
-    newFvg = async(fieldGroupId) => {
+    newFvg = async (fieldGroupId) => {
         if (fieldGroupId === 0) {
             this.props.enqueueSnackbar("You must select a field group to add.", {variant: "error"})
         }
@@ -87,38 +89,17 @@ class PatientForm extends Component {
         const headerStr = this.state.patient.id === 0 ? "New Patient" : "Update Patient";
         const savePatientStr = this.state.patient.id === 0 ? "Create Patient" : "Save Patient";
         return (
-            <Container>
-                <Grid
-                    container
-                    direction="column"
-                    alignItems="flex-start"
-                    alignContent="flex-start"
-                    spacing={2}
-                >
-                    <br/>
-                    <Grid item xs={12}>
-                        <Typography variant="h5" align="left">{headerStr}</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField onChange={event => this.changeName(event)} value={this.state.patient.name} label="Name"/>
-                    </Grid>
-                    {this.state.patient.fieldValueGroups.map(fvg =>
-                        <Fragment>
-                            <Grid item xs={12}>
-                                <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.modifyFvg} removeFvg={this.removeFvg} />
-                            </Grid>
-                        </Fragment>
-                    )}
-                    <Grid item xs={12}>
-                        {this.state.fieldGroupOptions &&
-                        <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
-                                       createFvg={this.newFvg}/>}
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button onClick={() => this.savePatient()} variant="contained" color="primary">{savePatientStr}</Button>
-                    </Grid>
-                </Grid>
-            </Container>
+            <MainContainer title={headerStr}>
+                <TextField onChange={event => this.changeName(event)} value={this.state.patient.name} label="Name"/>
+                {this.state.patient.fieldValueGroups.map(fvg =>
+                    <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.modifyFvg}
+                                            removeFvg={this.removeFvg}/>
+                )}
+                {this.state.fieldGroupOptions &&
+                <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
+                               createFvg={this.newFvg}/>}
+                <Button onClick={() => this.savePatient()} variant="contained" color="primary">{savePatientStr}</Button>
+            </MainContainer>
         );
     }
 }
