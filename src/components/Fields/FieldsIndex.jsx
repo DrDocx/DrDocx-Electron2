@@ -6,9 +6,11 @@ import FieldGroupsTable from "./FieldGroupsTable";
 class FieldsIndex extends Component {
     render() {
         return (
-            <MainContainer title={"Field Groups"}>
-                <FieldGroupsTable />
-            </MainContainer>
+            <Fragment>
+                <MainContainer title={"Field Groups"}>
+                    <FieldGroupsTable/>
+                </MainContainer>
+            </Fragment>
         );
     }
 }
