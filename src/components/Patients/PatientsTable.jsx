@@ -45,7 +45,7 @@ class PatientsTable extends Component {
         if (!confirmed || patientId === 0) {
             return;
         }
-        PatientsService.deletePatient(this.state.patientPendingDelete).then(() => {
+        PatientsService.deletePatient(patientId).then(() => {
             const newPatientsArr = this.state.patients.filter(p => p.id !== patientId);
             this.setState({patients: newPatientsArr});
             this.props.enqueueSnackbar("Patient successfully deleted.", {variant: "success"})

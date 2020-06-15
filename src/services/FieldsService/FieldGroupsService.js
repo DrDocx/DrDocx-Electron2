@@ -22,6 +22,10 @@ class FieldGroupsService {
 
     }
 
+    static async deleteFieldGroup(id) {
+        return axios.delete(fieldGroupApiUrl(id)).then(response => response.data);
+    }
+
     static async createFieldGroup(fieldGroup) {
 
     }

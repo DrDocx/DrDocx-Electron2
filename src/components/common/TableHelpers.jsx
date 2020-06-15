@@ -38,3 +38,11 @@ export const tableIcons = {
     Delete: forwardRef((props, ref) => <Delete {...props} ref={ref} />),
     PageviewIcon: forwardRef((props, ref) => <PageviewIcon {...props} ref={ref} />),
 };
+
+export const tableStyles = (theme) => ({
+    table: {
+        minWidth: "600px",
+        width: "auto",
+        maxWidth: "1000px"
+    },
+});

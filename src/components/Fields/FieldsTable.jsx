@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 
-class NewFieldGroup extends Component {
+class FieldsTable extends Component {
     render() {
         return (
             <Fragment>
@@ -11,6 +11,8 @@ class NewFieldGroup extends Component {
     }
 }
 
-NewFieldGroup.propTypes = {};
+FieldsTable.propTypes = {
+    fields: PropTypes.array.isRequired
+};
 
-export default NewFieldGroup;
+export default FieldsTable;
