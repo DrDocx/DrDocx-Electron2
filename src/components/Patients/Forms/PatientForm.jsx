@@ -14,7 +14,7 @@ import FieldValueGroupSection from "./FieldValueGroupForm";
 import withStyles from "@material-ui/core/styles/withStyles";
 import FieldValueGroupsService from "../../../services/FieldsService/FieldValueGroupsService";
 import {TitleContext} from "../../App/App";
-import MainContainer from "../../Main/MainContainer";
+import MainContainer from "../../common/MainContainer";
 
 class PatientForm extends Component {
     constructor(props) {

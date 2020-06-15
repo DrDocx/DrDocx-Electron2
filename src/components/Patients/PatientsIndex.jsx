@@ -8,7 +8,7 @@ import {Container, Grid, TextField, Typography} from "@material-ui/core";
 import FieldValueGroupSection from "./Forms/FieldValueGroupForm";
 import AddFieldGroup from "./Forms/AddFieldGroup";
 import Button from "@material-ui/core/Button";
-import MainContainer from "../Main/MainContainer";
+import MainContainer from "../common/MainContainer";
 
 class PatientsIndex extends Component {
     render() {
