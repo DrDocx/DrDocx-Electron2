@@ -92,7 +92,7 @@ class PatientForm extends Component {
             <MainContainer title={headerStr}>
                 <TextField onChange={event => this.changeName(event)} value={this.state.patient.name} label="Name"/>
                 {this.state.patient.fieldValueGroups.map(fvg =>
-                    <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.modifyFvg}
+                    <FieldValueGroupSection key={fvg.fieldGroupId} fieldValueGroup={fvg} setFvgState={this.modifyFvg}
                                             removeFvg={this.removeFvg}/>
                 )}
                 {this.state.fieldGroupOptions &&

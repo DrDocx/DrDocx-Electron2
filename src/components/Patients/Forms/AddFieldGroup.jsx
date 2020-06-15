@@ -10,7 +10,7 @@ import Paper from "@material-ui/core/Paper";
 class AddFieldGroup extends Component {
     constructor(props) {
         super(props);
-        this.state = {selectedFieldGroupId: 0}
+        this.state = {selectedFieldGroupId: ''}
     }
 
     selectedFieldGroupChanged = (event) => {
@@ -27,7 +27,7 @@ class AddFieldGroup extends Component {
                         <Select value={this.state.selectedFieldGroupId}
                                 onChange={event => this.selectedFieldGroupChanged(event)}>
                             {this.props.fieldGroups.map(group =>
-                                <MenuItem value={group.id}>{group.name}</MenuItem>
+                                <MenuItem key={group.id} value={group.id}>{group.name}</MenuItem>
                             )}
                         </Select>
                     </FormControl>
