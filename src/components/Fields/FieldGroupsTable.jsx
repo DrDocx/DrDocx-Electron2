@@ -15,7 +15,7 @@ class FieldGroupsTable extends Component {
         super(props);
         this.state = {
             fieldGroups: [],
-            fieldGroupPendingDelete: 0,
+            fieldGroupPending: 0,
             deleteGroupConfirmOpen: false,
             editGroupFormOpen: false
         };
@@ -32,13 +32,21 @@ class FieldGroupsTable extends Component {
         });
     }
 
-    onDeleteGroupClicked = (fieldGroupId) => {
-        this.setState({fieldGroupPendingDelete: fieldGroupId, deleteGroupConfirmOpen: true});
+    onAddGroupClicked = () => {
+        this.setState({editGroupFormOpen: true});
+    }
+
+    onEditGroupClicked = (fieldGroup) => {
+        this.setState({fieldGroupPending: fieldGroup, editGroupFormOpen: true});
+    }
+
+    onDeleteGroupClicked = (fieldGroup) => {
+        this.setState({fieldGroupPending: fieldGroup, deleteGroupConfirmOpen: true});
     }
 
     onDeleteGroupConfirmed = (confirmed) => {
-        const fieldGroupId = this.state.fieldGroupPendingDelete;
-        this.setState({deleteGroupConfirmOpen: false, fieldGroupPendingDelete: 0});
+        const fieldGroupId = this.state.fieldGroupPending.id;
+        this.setState({deleteGroupConfirmOpen: false, fieldGroupPending: null});
         if (!confirmed || fieldGroupId === 0) {
             return;
         }
@@ -50,7 +58,7 @@ class FieldGroupsTable extends Component {
     }
 
     onFormDone = (groupWasSaved, fieldGroup) => {
-        this.setState({editGroupFormOpen: false});
+        this.setState({editGroupFormOpen: false, fieldGroupPending: null});
         if (groupWasSaved) {
             const groupToUpdateIndex = this.state.fieldGroups.findIndex(fg => fg.id === fieldGroup.id);
             if (groupToUpdateIndex < 0) {
@@ -92,19 +100,18 @@ class FieldGroupsTable extends Component {
                         {
                             icon: tableIcons.Edit,
                             tooltip: 'Edit Patient',
-                            onClick: (event, rowData) => {
-                            }
+                            onClick: (event, rowData) => this.onEditGroupClicked(rowData)
                         },
                         {
                             icon: tableIcons.Delete,
                             tooltip: 'Delete Field Group',
-                            onClick: (event, rowData) => this.onDeleteGroupClicked(rowData.id)
+                            onClick: (event, rowData) => this.onDeleteGroupClicked(rowData)
                         },
                         {
                             icon: tableIcons.Add,
                             tooltip: 'Add Field Group',
                             isFreeAction: true,
-                            onClick: () => this.onRowAction('add', 0)
+                            onClick: () => this.onAddGroupClicked()
                         }
                     ]}
                 />

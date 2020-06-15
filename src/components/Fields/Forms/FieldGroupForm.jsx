@@ -47,10 +47,10 @@ class FieldGroupForm extends Component {
 
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => this.props.confirmDelete(false)} color="default">
+                        <Button onClick={() => this.props.onFormDone(false, null)} color="default">
                             Cancel
                         </Button>
-                        <Button onClick={() => this.props.confirmDelete(true)} color="secondary" autoFocus>
+                        <Button onClick={() => this.props.confirmDelete(true, this.state.fieldGroup)} color="primary" autoFocus>
                             {saveStr}
                         </Button>
                     </DialogActions>
