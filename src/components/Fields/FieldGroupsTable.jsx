@@ -62,7 +62,7 @@ class FieldGroupsTable extends Component {
         }
         const newFieldGroupsState = update(this.state.fieldGroups, {
             [groupToUpdateIndex]: {
-                fields: newFields
+                fields: {$set: newFields}
             }
         });
         this.setState({fieldGroups: newFieldGroupsState});

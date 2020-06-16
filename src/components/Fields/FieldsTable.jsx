@@ -7,11 +7,12 @@ import Select from "@material-ui/core/Select";
 import FieldDefaultValueEdit from "./FieldDefaultValueEdit";
 import FieldsService from "../../services/FieldsService/FieldsService";
 import update from 'immutability-helper';
+import moment from "moment";
 
 class FieldsTable extends Component {
     constructor(props) {
         super(props);
-        this.setState({currentValueType: "Text"})
+        this.state = {currentValueType: "Text"};
     }
 
     renderFieldTypeEdit(t) {
@@ -35,10 +36,11 @@ class FieldsTable extends Component {
 
     renderDefaultValueEdit(t) {
         const editType = t.rowData.type ?? this.state.currentValueType;
-        return (<FieldDefaultValueEdit target={t} editType={editType} />);
+        return (<FieldDefaultValueEdit target={t} editType={editType}/>);
     }
 
     onFieldCreated = (fieldToCreate) => {
+        fieldToCreate.fieldGroupId = this.props.fieldGroupId;
         FieldsService.createField(fieldToCreate).then(fieldResponse => {
             const newFields = update(this.props.fields, {
                 $push: [fieldResponse]
@@ -54,7 +56,7 @@ class FieldsTable extends Component {
                 return;
             }
             const newFields = update(this.props.fields, {
-                $splice: [[fieldToUpdateIndex, 1, fieldResponse]]
+                $splice: [[fieldToUpdateIndex, 1, fieldToUpdate]]
             });
             this.props.onGroupFieldsUpdated(this.props.fieldGroupId, newFields);
         });
@@ -73,6 +75,21 @@ class FieldsTable extends Component {
         });
     }
 
+    renderDefaultValueCell = (rowData) => {
+        if (rowData.type === 'Date') {
+            return (
+                <Fragment>
+                    {moment(rowData.defaultValue).format('MM/DD/yyyy')}
+                </Fragment>
+            )
+        }
+        return (
+            <Fragment>
+                {rowData.defaultValue}
+            </Fragment>
+        )
+    }
+
     render() {
         return (
             <Fragment>
@@ -81,9 +98,20 @@ class FieldsTable extends Component {
                     icons={tableIcons}
                     columns={[
                         {title: 'Name', field: 'name'},
-                        {title: 'Type', field: 'type', width: '5px', editable: 'onAdd', editComponent: t => this.renderFieldTypeEdit(t)},
+                        {
+                            title: 'Type',
+                            field: 'type',
+                            width: '5px',
+                            editable: 'onAdd',
+                            editComponent: t => this.renderFieldTypeEdit(t)
+                        },
                         {title: 'Match Text', field: 'matchText'},
-                        {title: 'Default Value', field: 'defaultValue', editComponent: t => this.renderDefaultValueEdit(t)}
+                        {
+                            title: 'Default Value',
+                            field: 'defaultValue',
+                            render: rowData => this.renderDefaultValueCell(rowData),
+                            editComponent: t => this.renderDefaultValueEdit(t)
+                        }
                     ]}
                     data={this.props.fields}
                     title="Fields"
