@@ -5,8 +5,6 @@ import MaterialTable from "material-table";
 import {tableIcons, tableStyles} from "../common/TableHelpers";
 import FieldsTable from "./FieldsTable";
 import withStyles from "@material-ui/core/styles/withStyles";
-import ConfirmationDialog from "../common/ConfirmationDialog";
-import FieldGroupForm from "./Forms/FieldGroupForm";
 import update from 'immutability-helper';
 
 class FieldGroupsTable extends Component {
@@ -30,50 +28,6 @@ class FieldGroupsTable extends Component {
             this.setState({fieldGroups: fieldGroupResponse});
         });
     }
-
-    /*    onAddGroupClicked = () => {
-            this.setState({editGroupFormOpen: true});
-        }
-
-        onEditGroupClicked = (fieldGroup) => {
-            this.setState({fieldGroupPending: fieldGroup, editGroupFormOpen: true});
-        }
-
-        onDeleteGroupClicked = (fieldGroup) => {
-            this.setState({fieldGroupPending: fieldGroup, deleteGroupConfirmOpen: true});
-        }
-
-        onDeleteGroupConfirmed = (confirmed) => {
-            const fieldGroupId = this.state.fieldGroupPending.id;
-            this.setState({deleteGroupConfirmOpen: false, fieldGroupPending: null});
-            if (!confirmed || fieldGroupId === 0) {
-                return;
-            }
-            FieldGroupsService.deleteFieldGroup(fieldGroupId).then(() => {
-                const newFieldGroupsArr = this.state.fieldGroups.filter(fg => fg.id !== fieldGroupId);
-                this.setState({fieldGroups: newFieldGroupsArr});
-                this.props.enqueueSnackbar("Field group successfully deleted.", {variant: "success"})
-            });
-        }
-
-        onFormDone = (groupWasSaved, fieldGroup) => {
-            this.setState({editGroupFormOpen: false, fieldGroupPending: null});
-            if (groupWasSaved) {
-                const groupToUpdateIndex = this.state.fieldGroups.findIndex(fg => fg.id === fieldGroup.id);
-                if (groupToUpdateIndex < 0) {
-                    const newFieldGroupsState = update(this.state.fieldGroups, {
-                        $push: [fieldGroup]
-                    });
-                    this.setState({fieldGroups: newFieldGroupsState});
-                }
-                else {
-                    const newFieldGroupsState = update(this.state.fieldGroups, {
-                        $splice: [[groupToUpdateIndex, 1, fieldGroup]]
-                    });
-                    this.setState({fieldGroups: newFieldGroupsState});
-                }
-            }
-        }*/
 
     onFieldGroupUpdated = (oldGroup, newGroup) => {
         FieldGroupsService.updateFieldGroup(newGroup).then(fieldGroupResponse => {
@@ -103,9 +57,6 @@ class FieldGroupsTable extends Component {
     render() {
         return (
             <Fragment>
-                {/*<ConfirmationDialog open={this.state.deleteGroupConfirmOpen}*/}
-                {/*                    confirmDelete={this.onDeleteGroupConfirmed}/>*/}
-                {/*<FieldGroupForm open={this.state.editGroupFormOpen} onFormDone={this.onFormDone}/>*/}
                 <MaterialTable
                     style={{minWidth: "600px"}}
                     icons={tableIcons}
