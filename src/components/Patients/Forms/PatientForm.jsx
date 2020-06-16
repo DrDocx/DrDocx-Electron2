@@ -31,7 +31,7 @@ class PatientForm extends Component {
     }
 
     getFieldGroupOptions = () => {
-        FieldGroupsService.getFieldGroups().then(fieldGroups => {
+        FieldGroupsService.getFieldGroups(false, false).then(fieldGroups => {
             const existingFieldGroupIds = this.state.patient.fieldValueGroups.map(fvg => fvg.fieldGroupId);
             const fieldGroupOptions = fieldGroups.filter(fieldGroup => !existingFieldGroupIds.includes(fieldGroup.id));
             this.setState({fieldGroupOptions: fieldGroupOptions});
@@ -39,7 +39,7 @@ class PatientForm extends Component {
     }
 
     newFvg = async (fieldGroupId) => {
-        if (fieldGroupId === 0) {
+        if (fieldGroupId === 0 || fieldGroupId === '') {
             this.props.enqueueSnackbar("You must select a field group to add.", {variant: "error"})
         }
         const fvIndex = this.state.fieldGroupOptions.findIndex(fg => fg.id === fieldGroupId);

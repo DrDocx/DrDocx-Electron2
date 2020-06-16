@@ -6,12 +6,16 @@ class FieldGroupsService {
         return `${fieldGroupApiUrl}/${id}`;
     }
 
-    static async getFieldGroups() {
-        return axios.get(fieldGroupsApiUrl).then(response => response.data);
+    static async getFieldGroups(includeFields, isDefault) {
+        const reqParams = {
+            isDefault: isDefault ? '1' : '0',
+            includeFields: includeFields ? '1' : '0'
+        }
+        return axios.get(fieldGroupsApiUrl, {params: reqParams}).then(response => response.data);
     }
 
     static async getDefaultFieldGroups() {
-        return axios.get(fieldGroupDefaultsApiUrl).then(response => response.data);
+        return this.getFieldGroups(true, true)
     }
 
     static async getFieldGroup(id) {
