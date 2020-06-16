@@ -6,7 +6,6 @@ import {tableIcons, tableStyles} from "../common/TableHelpers";
 import FieldsTable from "./FieldsTable";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ConfirmationDialog from "../common/ConfirmationDialog";
-import PatientsService from "../../services/PatientsService/PatientsService";
 import FieldGroupForm from "./Forms/FieldGroupForm";
 import update from 'immutability-helper';
 
@@ -32,56 +31,81 @@ class FieldGroupsTable extends Component {
         });
     }
 
-    onAddGroupClicked = () => {
-        this.setState({editGroupFormOpen: true});
-    }
-
-    onEditGroupClicked = (fieldGroup) => {
-        this.setState({fieldGroupPending: fieldGroup, editGroupFormOpen: true});
-    }
-
-    onDeleteGroupClicked = (fieldGroup) => {
-        this.setState({fieldGroupPending: fieldGroup, deleteGroupConfirmOpen: true});
-    }
-
-    onDeleteGroupConfirmed = (confirmed) => {
-        const fieldGroupId = this.state.fieldGroupPending.id;
-        this.setState({deleteGroupConfirmOpen: false, fieldGroupPending: null});
-        if (!confirmed || fieldGroupId === 0) {
-            return;
+    /*    onAddGroupClicked = () => {
+            this.setState({editGroupFormOpen: true});
         }
-        FieldGroupsService.deleteFieldGroup(fieldGroupId).then(() => {
-            const newFieldGroupsArr = this.state.fieldGroups.filter(fg => fg.id !== fieldGroupId);
-            this.setState({fieldGroups: newFieldGroupsArr});
-            this.props.enqueueSnackbar("Field group successfully deleted.", {variant: "success"})
+
+        onEditGroupClicked = (fieldGroup) => {
+            this.setState({fieldGroupPending: fieldGroup, editGroupFormOpen: true});
+        }
+
+        onDeleteGroupClicked = (fieldGroup) => {
+            this.setState({fieldGroupPending: fieldGroup, deleteGroupConfirmOpen: true});
+        }
+
+        onDeleteGroupConfirmed = (confirmed) => {
+            const fieldGroupId = this.state.fieldGroupPending.id;
+            this.setState({deleteGroupConfirmOpen: false, fieldGroupPending: null});
+            if (!confirmed || fieldGroupId === 0) {
+                return;
+            }
+            FieldGroupsService.deleteFieldGroup(fieldGroupId).then(() => {
+                const newFieldGroupsArr = this.state.fieldGroups.filter(fg => fg.id !== fieldGroupId);
+                this.setState({fieldGroups: newFieldGroupsArr});
+                this.props.enqueueSnackbar("Field group successfully deleted.", {variant: "success"})
+            });
+        }
+
+        onFormDone = (groupWasSaved, fieldGroup) => {
+            this.setState({editGroupFormOpen: false, fieldGroupPending: null});
+            if (groupWasSaved) {
+                const groupToUpdateIndex = this.state.fieldGroups.findIndex(fg => fg.id === fieldGroup.id);
+                if (groupToUpdateIndex < 0) {
+                    const newFieldGroupsState = update(this.state.fieldGroups, {
+                        $push: [fieldGroup]
+                    });
+                    this.setState({fieldGroups: newFieldGroupsState});
+                }
+                else {
+                    const newFieldGroupsState = update(this.state.fieldGroups, {
+                        $splice: [[groupToUpdateIndex, 1, fieldGroup]]
+                    });
+                    this.setState({fieldGroups: newFieldGroupsState});
+                }
+            }
+        }*/
+
+    onFieldGroupUpdated = (oldGroup, newGroup) => {
+        FieldGroupsService.updateFieldGroup(newGroup).then(fieldGroupResponse => {
+            const groupToUpdateIndex = this.state.fieldGroups.findIndex(fg => fg.id === oldGroup.id);
+            if (groupToUpdateIndex >= 0) {
+                const newFieldGroupsState = update(this.state.fieldGroups, {
+                    $splice: [[groupToUpdateIndex, 1, newGroup]]
+                });
+                this.setState({fieldGroups: newFieldGroupsState});
+            }
         });
     }
 
-    onFormDone = (groupWasSaved, fieldGroup) => {
-        this.setState({editGroupFormOpen: false, fieldGroupPending: null});
-        if (groupWasSaved) {
-            const groupToUpdateIndex = this.state.fieldGroups.findIndex(fg => fg.id === fieldGroup.id);
-            if (groupToUpdateIndex < 0) {
-                const newFieldGroupsState = update(this.state.fieldGroups, {
-                    $push: [fieldGroup]
-                });
-                this.setState({fieldGroups: newFieldGroupsState});
-            }
-            else {
-                const newFieldGroupsState = update(this.state.fieldGroups, {
-                    $splice: [[groupToUpdateIndex, 1, fieldGroup]]
-                });
-                this.setState({fieldGroups: newFieldGroupsState});
-            }
-        }
+    onFieldGroupCreated = (newGroup) => {
+        FieldGroupsService.createFieldGroup(newGroup).then(fieldGroupResponse => {
+            const newFieldGroupsState = update(this.state.fieldGroups, {
+                $push: [newGroup]
+            });
+            this.setState({fieldGroups: newFieldGroupsState});
+        });
+    }
+
+    onFieldGroupDeleted = (groupToDelete) => {
+        console.log(groupToDelete);
     }
 
     render() {
         return (
             <Fragment>
-                <ConfirmationDialog open={this.state.deleteGroupConfirmOpen}
-                                    confirmDelete={this.onDeleteGroupConfirmed}/>
-                <FieldGroupForm open={this.state.editGroupFormOpen} onFormDone={this.onFormDone}/>
+                {/*<ConfirmationDialog open={this.state.deleteGroupConfirmOpen}*/}
+                {/*                    confirmDelete={this.onDeleteGroupConfirmed}/>*/}
+                {/*<FieldGroupForm open={this.state.editGroupFormOpen} onFormDone={this.onFormDone}/>*/}
                 <MaterialTable
                     style={{minWidth: "600px"}}
                     icons={tableIcons}
@@ -96,24 +120,29 @@ class FieldGroupsTable extends Component {
                     options={{
                         actionsColumnIndex: -1
                     }}
-                    actions={[
-                        {
-                            icon: tableIcons.Edit,
-                            tooltip: 'Edit Patient',
-                            onClick: (event, rowData) => this.onEditGroupClicked(rowData)
-                        },
-                        {
-                            icon: tableIcons.Delete,
-                            tooltip: 'Delete Field Group',
-                            onClick: (event, rowData) => this.onDeleteGroupClicked(rowData)
-                        },
-                        {
-                            icon: tableIcons.Add,
-                            tooltip: 'Add Field Group',
-                            isFreeAction: true,
-                            onClick: () => this.onAddGroupClicked()
-                        }
-                    ]}
+                    editable={{
+                        onRowAdd: newData =>
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    this.onFieldGroupCreated(newData);
+                                    resolve();
+                                }, 500);
+                            }),
+                        onRowUpdate: (newData, oldData) =>
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    this.onFieldGroupUpdated(oldData, newData);
+                                    resolve();
+                                }, 500);
+                            }),
+                        onRowDelete: oldData =>
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    this.onFieldGroupDeleted(oldData);
+                                    resolve();
+                                }, 500);
+                            })
+                    }}
                 />
             </Fragment>
         );

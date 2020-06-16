@@ -5,12 +5,10 @@ import Header from "../Header/Header";
 import Navigator from "../Navigator/Navigator";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import {withStyles, ThemeProvider, Typography} from "@material-ui/core";
+import {withStyles, ThemeProvider} from "@material-ui/core";
 import {appTheme, styles} from "./AppStyle"
 import clsx from 'clsx';
 import {SnackbarProvider} from "notistack";
-import MomentUtils from '@date-io/moment';
-import MuiPickersUtilsProvider from "@material-ui/pickers/MuiPickersUtilsProvider";
 
 // TODO: Make this work
 export const TitleContext = React.createContext({});

@@ -13,13 +13,12 @@ import {withRouter} from "react-router-dom";
 class Header extends Component {
 
     render() {
-        console.log(this.props.history);
         return (
             <Fragment>
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" aria-label="menu"
-                                    onClick={() => this.props.toggleNavigator}>
+                                    onClick={this.props.toggleNavigator}>
                             <MenuIcon/>
                         </IconButton>
                         <IconButton edge="start" color="inherit" aria-label="back"
@@ -30,9 +29,6 @@ class Header extends Component {
                                     onClick={this.props.history.goForward}>
                             <ArrowForwardIcon/>
                         </IconButton>
-                        {/*<Typography variant="h6">*/}
-                        {/*    {this.props.title}*/}
-                        {/*</Typography>*/}
                     </Toolbar>
                 </AppBar>
             </Fragment>
