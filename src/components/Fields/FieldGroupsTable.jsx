@@ -10,12 +10,7 @@ import update from 'immutability-helper';
 class FieldGroupsTable extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            fieldGroups: [],
-            fieldGroupPending: 0,
-            deleteGroupConfirmOpen: false,
-            editGroupFormOpen: false
-        };
+        this.state = {fieldGroups: []};
     }
 
 
@@ -77,21 +72,21 @@ class FieldGroupsTable extends Component {
                                 setTimeout(() => {
                                     this.onFieldGroupCreated(newData);
                                     resolve();
-                                }, 500);
+                                }, 250);
                             }),
                         onRowUpdate: (newData, oldData) =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
                                     this.onFieldGroupUpdated(oldData, newData);
                                     resolve();
-                                }, 500);
+                                }, 250);
                             }),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
                                     this.onFieldGroupDeleted(oldData);
                                     resolve();
-                                }, 500);
+                                }, 250);
                             })
                     }}
                 />
