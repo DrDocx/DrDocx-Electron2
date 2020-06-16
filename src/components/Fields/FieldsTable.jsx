@@ -4,19 +4,15 @@ import MaterialTable from "material-table";
 import {tableIcons} from "../common/TableHelpers";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
-import {MuiPickersUtilsProvider} from "@material-ui/pickers";
-import {DatePicker} from "@material-ui/pickers";
-import MomentUtils from "@date-io/moment";
-import Tooltip from "@material-ui/core/Tooltip";
-import FieldDefaultValueEdit from "./DefaultValueEdit";
+import FieldDefaultValueEdit from "./FieldDefaultValueEdit";
+import FieldsService from "../../services/FieldsService/FieldsService";
+import update from 'immutability-helper';
 
 class FieldsTable extends Component {
     constructor(props) {
         super(props);
         this.setState({currentValueType: "Text"})
     }
-
 
     renderFieldTypeEdit(t) {
         return (
@@ -42,6 +38,41 @@ class FieldsTable extends Component {
         return (<FieldDefaultValueEdit target={t} editType={editType} />);
     }
 
+    onFieldCreated = (fieldToCreate) => {
+        FieldsService.createField(fieldToCreate).then(fieldResponse => {
+            const newFields = update(this.props.fields, {
+                $push: [fieldResponse]
+            });
+            this.props.onGroupFieldsUpdated(this.props.fieldGroupId, newFields);
+        })
+    }
+
+    onFieldUpdated = (fieldToUpdate) => {
+        FieldsService.updateField(fieldToUpdate).then(fieldResponse => {
+            const fieldToUpdateIndex = this.props.fields.findIndex(f => f.id === fieldToUpdate.id);
+            if (fieldToUpdateIndex < 0) {
+                return;
+            }
+            const newFields = update(this.props.fields, {
+                $splice: [[fieldToUpdateIndex, 1, fieldResponse]]
+            });
+            this.props.onGroupFieldsUpdated(this.props.fieldGroupId, newFields);
+        });
+    }
+
+    onFieldDeleted = (fieldToDelete) => {
+        FieldsService.deleteField(fieldToDelete.id).then(fieldResponse => {
+            const fieldToDeleteIndex = this.props.fields.findIndex(f => f.id === fieldToDelete.id);
+            if (fieldToDeleteIndex < 0) {
+                return;
+            }
+            const newFields = update(this.props.fields, {
+                $splice: [[fieldToDeleteIndex, 1]]
+            });
+            this.props.onGroupFieldsUpdated(this.props.fieldGroupId, newFields);
+        });
+    }
+
     render() {
         return (
             <Fragment>
@@ -63,21 +94,21 @@ class FieldsTable extends Component {
                         onRowAdd: newData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
-
+                                    this.onFieldCreated(newData);
                                     resolve();
                                 }, 250);
                             }),
                         onRowUpdate: (newData, oldData) =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
-
+                                    this.onFieldUpdated(newData);
                                     resolve();
                                 }, 250);
                             }),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
-
+                                    this.onFieldDeleted(oldData);
                                     resolve();
                                 }, 250);
                             })
@@ -89,7 +120,9 @@ class FieldsTable extends Component {
 }
 
 FieldsTable.propTypes = {
-    fields: PropTypes.array.isRequired
+    fields: PropTypes.array.isRequired,
+    fieldGroupId: PropTypes.number.isRequired,
+    onGroupFieldsUpdated: PropTypes.func.isRequired
 };
 
 export default FieldsTable;
