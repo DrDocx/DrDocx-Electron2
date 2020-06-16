@@ -46,7 +46,7 @@ class FieldValueGroupForm extends Component {
                               alignContent="flex-start"
                               spacing={2}>
                             {this.props.fieldValueGroup.fieldValues.map(fv =>
-                                <Grid item xs={12}>
+                                <Grid key={fv.fieldId} item xs={12}>
                                     <br/>
                                     <FieldValueForm setFieldValue={this.setFieldValue} fieldValue={fv}/>
                                 </Grid>

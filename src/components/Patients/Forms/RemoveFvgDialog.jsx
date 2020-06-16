@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
-import ConfirmationDialog from "../../Main/ConfirmationDialog";
+import ConfirmationDialog from "../../common/ConfirmationDialog";
 
 class RemoveFvgDialog extends Component {
     render() {

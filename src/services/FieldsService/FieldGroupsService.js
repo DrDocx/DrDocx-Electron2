@@ -18,12 +18,16 @@ class FieldGroupsService {
         return axios.get(fieldGroupApiUrl(id)).then(response => response.data);
     }
 
-    static async updateFieldGroup(id, fieldGroup) {
+    static async deleteFieldGroup(id) {
+        return axios.delete(fieldGroupApiUrl(id)).then(response => response.data);
+    }
 
+    static async updateFieldGroup(fieldGroup) {
+        return axios.put(fieldGroupApiUrl(fieldGroup.id), fieldGroup).then(response => response.data);
     }
 
     static async createFieldGroup(fieldGroup) {
-
+        return axios.post(fieldGroupsApiUrl, fieldGroup).then(response => response.data);
     }
 }
 

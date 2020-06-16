@@ -2,19 +2,15 @@ import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import {withRouter} from "react-router-dom";
 import update from 'immutability-helper';
-import Patient from "../../../models/Patient";
-import {TextField, Container, Typography, Grid, Select, FormControl, MenuItem, InputLabel} from "@material-ui/core";
+import {TextField} from "@material-ui/core";
 import FieldValueGroup from "../../../models/FieldValueGroup";
 import Button from "@material-ui/core/Button";
-import {patientFormStyles} from "./PatientFormStyles";
 import AddFieldGroup from "./AddFieldGroup";
 import {withSnackbar} from "notistack";
 import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
 import FieldValueGroupSection from "./FieldValueGroupForm";
-import withStyles from "@material-ui/core/styles/withStyles";
 import FieldValueGroupsService from "../../../services/FieldsService/FieldValueGroupsService";
-import {TitleContext} from "../../App/App";
-import MainContainer from "../../Main/MainContainer";
+import MainContainer from "../../common/MainContainer";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -89,17 +85,21 @@ class PatientForm extends Component {
         const headerStr = this.state.patient.id === 0 ? "New Patient" : "Update Patient";
         const savePatientStr = this.state.patient.id === 0 ? "Create Patient" : "Save Patient";
         return (
-            <MainContainer title={headerStr}>
-                <TextField onChange={event => this.changeName(event)} value={this.state.patient.name} label="Name"/>
-                {this.state.patient.fieldValueGroups.map(fvg =>
-                    <FieldValueGroupSection fieldValueGroup={fvg} setFvgState={this.modifyFvg}
-                                            removeFvg={this.removeFvg}/>
-                )}
-                {this.state.fieldGroupOptions &&
-                <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
-                               createFvg={this.newFvg}/>}
-                <Button onClick={() => this.savePatient()} variant="contained" color="primary">{savePatientStr}</Button>
-            </MainContainer>
+            <Fragment>
+                <MainContainer title={headerStr}>
+                    <TextField onChange={event => this.changeName(event)} value={this.state.patient.name} label="Name"/>
+                    {this.state.patient.fieldValueGroups.map(fvg =>
+                        <FieldValueGroupSection key={fvg.fieldGroupId} fieldValueGroup={fvg}
+                                                setFvgState={this.modifyFvg}
+                                                removeFvg={this.removeFvg}/>
+                    )}
+                    {this.state.fieldGroupOptions &&
+                    <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
+                                   createFvg={this.newFvg}/>}
+                    <Button onClick={() => this.savePatient()} variant="contained"
+                            color="primary">{savePatientStr}</Button>
+                </MainContainer>
+            </Fragment>
         );
     }
 }

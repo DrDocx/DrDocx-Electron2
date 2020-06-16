@@ -1,18 +1,15 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
-import {withRouter, useLocation} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import {withStyles} from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import NavigatorItem from './NavigatorItem';
-
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InputIcon from '@material-ui/icons/Input';
 import PeopleIcon from '@material-ui/icons/People';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { styles } from './NavigatorStyle.jsx'
 import logo from '../../images/logo.png';
 import clsx from 'clsx';
@@ -25,7 +22,7 @@ var categories = [
 	{ id: 'Templates', icon: <PostAddIcon />, route: '/templates' },
 ];
 
-class Navigator extends React.Component {
+class Navigator extends Component {
 
 	constructor(props) {
 		super(props);
