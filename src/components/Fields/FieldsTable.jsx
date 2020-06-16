@@ -9,8 +9,15 @@ import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 import {DatePicker} from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import Tooltip from "@material-ui/core/Tooltip";
+import FieldDefaultValueEdit from "./DefaultValueEdit";
 
 class FieldsTable extends Component {
+    constructor(props) {
+        super(props);
+        this.setState({currentValueType: "Text"})
+    }
+
+
     renderFieldTypeEdit(t) {
         return (
             <Fragment>
@@ -19,8 +26,7 @@ class FieldsTable extends Component {
                     value={t.value}
                     onChange={e => {
                         t.onChange(e.target.value);
-                        console.group(e.target.value);
-                        this.currentValueType = e.target.value;
+                        this.setState({currentValueType: e.target.value});
                     }}
                 >
                     <MenuItem value={'Text'}>{'Text'}</MenuItem>
@@ -32,57 +38,8 @@ class FieldsTable extends Component {
     }
 
     renderDefaultValueEdit(t) {
-        const editType = t.rowData.type ?? this.currentValueType;
-        if (editType === 'Paragraph') {
-            return (
-                <TextField
-                    id="outlined-multiline-static"
-                    style={{width: "300px"}} // This is kind of hacky but I can't figure out auto-resizing of the field.
-                    multiline
-                    rows={3}
-                    value={t.value}
-                    onChange={e => t.onChange(e.target.value)}
-                    variant="outlined"
-                    InputProps={{
-                        style: {
-                            fontSize: 14
-                        }
-                    }}
-                />
-            );
-        }
-        else if (editType === 'Date') {
-            return (
-                <MuiPickersUtilsProvider utils={MomentUtils}>
-                    <DatePicker
-                        format='MM/DD/yyyy'
-                        value={t.value || null}
-                        placeholder={t.columnDef.title}
-                        onChange={t.onChange}
-                        clearable
-                        InputProps={{
-                            style: {
-                                fontSize: 14
-                            }
-                        }}
-                    />
-                </MuiPickersUtilsProvider>
-            );
-        }
-        return (
-            <Fragment>
-                <TextField
-                    value={t.value}
-                    onChange={e => t.onChange(e.target.value)}
-                    placeholder={t.columnDef.title}
-                    InputProps={{
-                        style: {
-                            fontSize: 14
-                        }
-                    }}
-                />
-            </Fragment>
-        );
+        const editType = t.rowData.type ?? this.state.currentValueType;
+        return (<FieldDefaultValueEdit target={t} editType={editType} />);
     }
 
     render() {
