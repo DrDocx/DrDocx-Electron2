@@ -18,6 +18,10 @@ class FieldGroupsService {
         return this.getFieldGroups(true, true)
     }
 
+    static async getFullFieldGroups() {
+        return this.getFieldGroups(true, false);
+    }
+
     static async getFieldGroup(id) {
         return axios.get(fieldGroupApiUrl(id)).then(response => response.data);
     }

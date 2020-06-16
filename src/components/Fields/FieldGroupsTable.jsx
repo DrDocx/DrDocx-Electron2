@@ -19,7 +19,7 @@ class FieldGroupsTable extends Component {
     }
 
     updateFieldGroups = () => {
-        FieldGroupsService.getFieldGroups().then(fieldGroupResponse => {
+        FieldGroupsService.getFullFieldGroups().then(fieldGroupResponse => {
             this.setState({fieldGroups: fieldGroupResponse});
         });
     }
@@ -53,7 +53,7 @@ class FieldGroupsTable extends Component {
         return (
             <Fragment>
                 <MaterialTable
-                    style={{minWidth: "600px"}}
+                    style={{minWidth: "700px"}}
                     icons={tableIcons}
                     columns={[
                         {title: 'Name', field: 'name'},
