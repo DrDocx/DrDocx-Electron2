@@ -10,12 +10,7 @@ import update from 'immutability-helper';
 class FieldGroupsTable extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            fieldGroups: [],
-            fieldGroupPending: 0,
-            deleteGroupConfirmOpen: false,
-            editGroupFormOpen: false
-        };
+        this.state = {fieldGroups: []};
     }
 
 
@@ -24,7 +19,7 @@ class FieldGroupsTable extends Component {
     }
 
     updateFieldGroups = () => {
-        FieldGroupsService.getFieldGroups().then(fieldGroupResponse => {
+        FieldGroupsService.getFullFieldGroups().then(fieldGroupResponse => {
             this.setState({fieldGroups: fieldGroupResponse});
         });
     }
@@ -34,7 +29,7 @@ class FieldGroupsTable extends Component {
             const groupToUpdateIndex = this.state.fieldGroups.findIndex(fg => fg.id === oldGroup.id);
             if (groupToUpdateIndex >= 0) {
                 const newFieldGroupsState = update(this.state.fieldGroups, {
-                    $splice: [[groupToUpdateIndex, 1, newGroup]]
+                    $splice: [[groupToUpdateIndex, 1, fieldGroupResponse]]
                 });
                 this.setState({fieldGroups: newFieldGroupsState});
             }
@@ -44,21 +39,40 @@ class FieldGroupsTable extends Component {
     onFieldGroupCreated = (newGroup) => {
         FieldGroupsService.createFieldGroup(newGroup).then(fieldGroupResponse => {
             const newFieldGroupsState = update(this.state.fieldGroups, {
-                $push: [newGroup]
+                $push: [fieldGroupResponse]
             });
             this.setState({fieldGroups: newFieldGroupsState});
         });
     }
 
     onFieldGroupDeleted = (groupToDelete) => {
-        console.log(groupToDelete);
+        FieldGroupsService.deleteFieldGroup(groupToDelete.id).then(fieldGroupResponse => {
+            const groupToDeleteIndex = this.state.fieldGroups.findIndex(fg => fg.id === groupToDelete.id);
+            const newFieldGroupsState = update(this.state.fieldGroups, {
+                $splice: [[groupToDeleteIndex, 1]]
+            });
+            this.setState({fieldGroups: newFieldGroupsState});
+        });
+    }
+
+    onGroupFieldsUpdated = (fieldGroupId, newFields) => {
+        const groupToUpdateIndex = this.state.fieldGroups.findIndex(fg => fg.id === fieldGroupId);
+        if (groupToUpdateIndex < 0) {
+            return;
+        }
+        const newFieldGroupsState = update(this.state.fieldGroups, {
+            [groupToUpdateIndex]: {
+                fields: {$set: newFields}
+            }
+        });
+        this.setState({fieldGroups: newFieldGroupsState});
     }
 
     render() {
         return (
             <Fragment>
                 <MaterialTable
-                    style={{minWidth: "600px"}}
+                    style={{minWidth: "700px"}}
                     icons={tableIcons}
                     columns={[
                         {title: 'Name', field: 'name'},
@@ -66,7 +80,8 @@ class FieldGroupsTable extends Component {
                     ]}
                     data={this.state.fieldGroups}
                     title=""
-                    detailPanel={rowData => <FieldsTable fields={rowData.fields}/>}
+                    detailPanel={rowData => <FieldsTable fields={rowData.fields} fieldGroupId={rowData.id}
+                                                         onGroupFieldsUpdated={this.onGroupFieldsUpdated}/>}
                     onRowClick={(event, rowData, togglePanel) => togglePanel()}
                     options={{
                         actionsColumnIndex: -1
@@ -77,21 +92,21 @@ class FieldGroupsTable extends Component {
                                 setTimeout(() => {
                                     this.onFieldGroupCreated(newData);
                                     resolve();
-                                }, 500);
+                                }, 250);
                             }),
                         onRowUpdate: (newData, oldData) =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
                                     this.onFieldGroupUpdated(oldData, newData);
                                     resolve();
-                                }, 500);
+                                }, 250);
                             }),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
                                     this.onFieldGroupDeleted(oldData);
                                     resolve();
-                                }, 500);
+                                }, 250);
                             })
                     }}
                 />

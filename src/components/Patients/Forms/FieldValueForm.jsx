@@ -1,12 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import TextField from "@material-ui/core/TextField";
-import {DatePicker} from "@material-ui/pickers";
+import {KeyboardDatePicker} from "@material-ui/pickers";
 import {Grid, withStyles} from "@material-ui/core";
 import update from 'immutability-helper';
 import MomentUtils from "@date-io/moment";
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 import {patientFormStyles} from "./PatientFormStyles";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class FieldValueForm extends Component {
 
@@ -16,6 +17,10 @@ class FieldValueForm extends Component {
 
     fieldName() {
         return this.props.fieldValue.field.name;
+    }
+
+    fieldMatchText() {
+        return this.props.fieldValue.field.matchText;
     }
 
     updateFieldTextValue = (event) => {
@@ -34,9 +39,11 @@ class FieldValueForm extends Component {
     renderText() {
         return (
             <Fragment>
-                <TextField onChange={event => this.updateFieldTextValue(event)}
-                           value={this.fieldTextValue()}
-                           label={this.fieldName()}/>
+                <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
+                    <TextField onChange={event => this.updateFieldTextValue(event)}
+                               value={this.fieldTextValue()}
+                               label={this.fieldName()}/>
+                </Tooltip>
             </Fragment>
         );
     }
@@ -44,16 +51,18 @@ class FieldValueForm extends Component {
     renderParagraph() {
         return (
             <Fragment>
-                <TextField
-                    id="outlined-multiline-static"
-                    label={this.fieldName()}
-                    className={this.props.classes.paragraphFieldValue}
-                    multiline
-                    rows={4}
-                    value={this.fieldTextValue()}
-                    onChange={event => this.updateFieldTextValue(event)}
-                    variant="outlined"
-                />
+                <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
+                    <TextField
+                        id="outlined-multiline-static"
+                        label={this.fieldName()}
+                        className={this.props.classes.paragraphFieldValue}
+                        multiline
+                        rows={4}
+                        value={this.fieldTextValue()}
+                        onChange={event => this.updateFieldTextValue(event)}
+                        variant="outlined"
+                    />
+                </Tooltip>
             </Fragment>
         );
     }
@@ -65,12 +74,14 @@ class FieldValueForm extends Component {
         }
         return (
             <MuiPickersUtilsProvider utils={MomentUtils}>
-                <DatePicker
-                    label={this.fieldName()}
-                    value={date}
-                    onChange={event => this.updateFieldTextValue(event)}
-                    openTo="year"
-                    format="MM/DD/yyyy"/>
+                <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
+                    <KeyboardDatePicker
+                        label={this.fieldName()}
+                        value={date}
+                        onChange={event => this.updateFieldTextValue(event)}
+                        openTo="year"
+                        format="MM/DD/yyyy"/>
+                </Tooltip>
             </MuiPickersUtilsProvider>
         )
     }
