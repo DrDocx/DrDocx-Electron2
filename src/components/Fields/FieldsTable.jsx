@@ -15,30 +15,6 @@ class FieldsTable extends Component {
         this.state = {currentValueType: "Text"};
     }
 
-    renderFieldTypeEdit(t) {
-        return (
-            <Fragment>
-                <Select
-                    style={{width: "100px", fontSize: "14px"}}
-                    value={t.value}
-                    onChange={e => {
-                        t.onChange(e.target.value);
-                        this.setState({currentValueType: e.target.value});
-                    }}
-                >
-                    <MenuItem value={'Text'}>{'Text'}</MenuItem>
-                    <MenuItem value={'Paragraph'}>{'Paragraph'}</MenuItem>
-                    <MenuItem value={'Date'}>{'Date'}</MenuItem>
-                </Select>
-            </Fragment>
-        );
-    }
-
-    renderDefaultValueEdit(t) {
-        const editType = t.rowData.type ?? this.state.currentValueType;
-        return (<FieldDefaultValueEdit target={t} editType={editType}/>);
-    }
-
     onFieldCreated = (fieldToCreate) => {
         fieldToCreate.fieldGroupId = this.props.fieldGroupId;
         FieldsService.createField(fieldToCreate).then(fieldResponse => {
@@ -73,6 +49,30 @@ class FieldsTable extends Component {
             });
             this.props.onGroupFieldsUpdated(this.props.fieldGroupId, newFields);
         });
+    }
+
+    renderFieldTypeEdit(t) {
+        return (
+            <Fragment>
+                <Select
+                    style={{width: "100px", fontSize: "14px"}}
+                    value={t.value}
+                    onChange={e => {
+                        t.onChange(e.target.value);
+                        this.setState({currentValueType: e.target.value});
+                    }}
+                >
+                    <MenuItem value={'Text'}>{'Text'}</MenuItem>
+                    <MenuItem value={'Paragraph'}>{'Paragraph'}</MenuItem>
+                    <MenuItem value={'Date'}>{'Date'}</MenuItem>
+                </Select>
+            </Fragment>
+        );
+    }
+
+    renderDefaultValueEdit(t) {
+        const editType = t.rowData.type ?? this.state.currentValueType;
+        return <FieldDefaultValueEdit target={t} editType={editType}/>;
     }
 
     renderDefaultValueCell = (rowData) => {

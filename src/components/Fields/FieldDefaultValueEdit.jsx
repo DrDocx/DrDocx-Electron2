@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import TextField from "@material-ui/core/TextField";
-import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 
 class FieldDefaultValueEdit extends Component {
@@ -27,7 +27,7 @@ class FieldDefaultValueEdit extends Component {
         else if (this.props.editType === 'Date') {
             return (
                 <MuiPickersUtilsProvider utils={MomentUtils}>
-                    <DatePicker
+                    <KeyboardDatePicker
                         format='MM/DD/yyyy'
                         value={this.props.target.value || null}
                         placeholder={this.props.target.columnDef.title}
