@@ -15,16 +15,12 @@ class FieldsTable extends Component {
         return (
             <Fragment>
                 <Select
+                    style={{width: "100px", fontSize: "14px"}}
                     value={t.value}
                     onChange={e => {
                         t.onChange(e.target.value);
                         console.group(e.target.value);
                         this.currentValueType = e.target.value;
-                    }}
-                    InputProps={{
-                        style: {
-                            fontSize: 14
-                        }
                     }}
                 >
                     <MenuItem value={'Text'}>{'Text'}</MenuItem>
