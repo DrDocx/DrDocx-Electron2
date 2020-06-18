@@ -6,8 +6,8 @@ import ReportsService from "../../services/ReportsService";
 import Button from "@material-ui/core/Button";
 import {withSnackbar} from "notistack";
 import update from "immutability-helper";
-
-const electron = window.require('electron');
+// This is not strictly necessary for the Electron app to work, but is used so the app can still be loaded/debugged in a browser.
+const electron = window.require ? window.require('electron') : null;
 
 class TemplatesTable extends Component {
     constructor(props) {
@@ -106,10 +106,11 @@ class TemplatesTable extends Component {
                         },
                     ]}
                     data={this.state.reportTemplates}
-                    onRowClick={(event, rowData) => electron.remote.shell.openItem(rowData.filePath)}
+                    onRowClick={(event, rowData) => electron && electron.remote.shell.openItem(rowData.filePath)}
                     options={{
                         actionsColumnIndex: -1
                     }}
+                    localization={{body: {editRow: {deleteText: 'Are you sure you want to delete this report template?'}}}}
                     editable={{
                         onRowAddCancelled: rowData =>
                             this.setState({currentFile: null}),
@@ -139,7 +140,7 @@ class TemplatesTable extends Component {
                         {
                             icon: tableIcons.Folder,
                             tooltip: 'Show in Folder',
-                            onClick: (event, rowData) => electron.remote.shell.showItemInFolder(rowData.filePath)
+                            onClick: (event, rowData) => electron && electron.remote.shell.showItemInFolder(rowData.filePath)
                         }
                     ]}
                 />

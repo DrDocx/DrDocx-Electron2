@@ -1,5 +1,3 @@
-const axios = require('axios');
-
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -28,7 +26,7 @@ function createWindow() {
 function runWinApi() {
     var child = require('child_process').execFile;
     var dirPath = app.getAppPath();
-    var apiPath = path.join(dirPath, 'api-bin/DrDocx-API.exe');
+    var apiPath = path.join(dirPath, '..', '..', 'api-bin\\DrDocx-API.exe');
 
     child(apiPath, function (err, data) {
         if (err) {
@@ -42,17 +40,8 @@ function runWinApi() {
 app.on('ready', () => {
     if (process.platform === 'win32') {
         runWinApi();
-        axios.get('https://localhost:1211/api/ping').then((response) => {
-            if (response.status === 200) {
-                createWindow();
-            }
-        }).catch((error) => {
-            console.log(error);
-            createWindow();
-        });
-    } else {
-        createWindow();
     }
+    createWindow();
 });
 
 app.on('window-all-closed', () => {
@@ -68,5 +57,5 @@ app.on('activate', () => {
 });
 
 app.on('before-quit', () => {
-    // TODO: Kill api process
+
 });
