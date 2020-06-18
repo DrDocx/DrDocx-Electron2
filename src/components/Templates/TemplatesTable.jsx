@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import {withSnackbar} from "notistack";
 import update from "immutability-helper";
 
-const {shell} = window.require('electron');
+const electron = window.require('electron');
 
 class TemplatesTable extends Component {
     constructor(props) {
@@ -41,7 +41,7 @@ class TemplatesTable extends Component {
     }
 
     onReportTemplateUpdated = (templateToUpdate) => {
-        ReportsService.deleteReportTemplate(templateToUpdate).then(templateResponse => {
+        ReportsService.updateReportTemplate(templateToUpdate).then(templateResponse => {
             const templateToUpdateIndex = this.state.reportTemplates.findIndex(rt => rt.id === templateToUpdate.id);
             if (templateToUpdateIndex < 0) {
                 return;
@@ -106,7 +106,7 @@ class TemplatesTable extends Component {
                         },
                     ]}
                     data={this.state.reportTemplates}
-                    onRowClick={(event, rowData) => shell.openItem(rowData.filePath)}
+                    onRowClick={(event, rowData) => electron.remote.shell.openItem(rowData.filePath)}
                     options={{
                         actionsColumnIndex: -1
                     }}
@@ -118,7 +118,7 @@ class TemplatesTable extends Component {
                                 setTimeout(() => {
                                     this.onReportTemplateCreated(newData);
                                     resolve();
-                                }, 1000);
+                                }, 500);
                             }),
                         onRowUpdate: (newData, oldData) =>
                             new Promise((resolve, reject) => {
@@ -139,7 +139,7 @@ class TemplatesTable extends Component {
                         {
                             icon: tableIcons.Folder,
                             tooltip: 'Show in Folder',
-                            onClick: (event, rowData) => shell.showItemInFolder(rowData.filePath)
+                            onClick: (event, rowData) => electron.remote.shell.showItemInFolder(rowData.filePath)
                         }
                     ]}
                 />
