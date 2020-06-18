@@ -1,5 +1,5 @@
 {
-  "name": "drdocx-electron",
+  "name": "DrDocx-Electron",
   "version": "0.1.0",
   "private": true,
   "main": "public/electron.js",
@@ -56,7 +56,10 @@
     ],
     "extraFiles": [
       "api-bin"
-    ]
+    ],
+    "nsis":{
+      "oneClick": false
+    }
   },
   "browserslist": {
     "production": [

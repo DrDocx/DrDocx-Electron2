@@ -2,6 +2,8 @@ export const apiUrl = "https://localhost:1211/api";
 export const fullUrl = (route) => { return `${apiUrl}${route}` };
 export const idUrl = (baseUrl, id) => { return `${baseUrl}/${id}` };
 
+export const pingApiUrl = fullUrl('/ping');
+
 export const patientsApiUrl = fullUrl("/patient");
 export const patientApiUrl = (id) => idUrl(patientsApiUrl, id);
 
