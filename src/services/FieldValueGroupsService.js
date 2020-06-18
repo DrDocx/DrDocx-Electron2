@@ -1,5 +1,5 @@
 import axios from "axios";
-import {fieldValueGroupApiUrl, fieldValueGroupsApiUrl, fieldValueGroupsBatchApiUrl} from "./service-routes";
+import {fieldValueGroupApiUrl, fieldValueGroupsApiUrl} from "./service-routes";
 
 class FieldValueGroupsService {
     static async getFieldValueGroups() {
@@ -11,7 +11,7 @@ class FieldValueGroupsService {
     }
 
     static async updateFieldValueGroup(fieldValueGroup) {
-
+        return axios.put(fieldValueGroupApiUrl(fieldValueGroup.id), fieldValueGroup).then(response => response.data);
     }
 
     static async createFieldValueGroup(fieldValueGroup) {
