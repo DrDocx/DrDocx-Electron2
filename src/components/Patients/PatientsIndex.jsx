@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import {Switch, Route, useRouteMatch} from 'react-router-dom';
 import PatientsTable from "./PatientsTable";
-import PatientsService from "../../services/PatientsService/PatientsService";
+import PatientsService from "../../services/PatientsService";
 import {Link} from 'react-router-dom';
 import {Container, Grid, TextField, Typography} from "@material-ui/core";
 import FieldValueGroupSection from "./Forms/FieldValueGroupForm";

@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import TextField from "@material-ui/core/TextField";
-import {KeyboardDatePicker} from "@material-ui/pickers";
+import {DatePicker} from "@material-ui/pickers";
 import {Grid, withStyles} from "@material-ui/core";
 import update from 'immutability-helper';
 import MomentUtils from "@date-io/moment";
@@ -75,7 +75,7 @@ class FieldValueForm extends Component {
         return (
             <MuiPickersUtilsProvider utils={MomentUtils}>
                 <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
-                    <KeyboardDatePicker
+                    <DatePicker
                         label={this.fieldName()}
                         value={date}
                         onChange={event => this.updateFieldTextValue(event)}

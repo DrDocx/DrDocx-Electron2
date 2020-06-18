@@ -3,7 +3,7 @@ import {Switch, Route} from 'react-router-dom';
 import * as PropTypes from 'prop-types';
 import Patients from "../Patients/Patients";
 import Fields from "../Fields/Fields";
-import Link from "@material-ui/core/Link";
+import Templates from "../Templates/Templates";
 
 class Main extends Component {
     render() {
@@ -12,7 +12,8 @@ class Main extends Component {
                 <Switch>
                     <Route exact path="/" component={Patients}/>
                     <Route path="/patients" component={Patients}/>
-                    <Route path="/fields" component={Fields} />
+                    <Route path="/fields" component={Fields}/>
+                    <Route path="/templates" component={Templates}/>
                 </Switch>
             </Fragment>
         );

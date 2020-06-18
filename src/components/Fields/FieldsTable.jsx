@@ -5,7 +5,7 @@ import {tableIcons} from "../common/TableHelpers";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import FieldDefaultValueEdit from "./FieldDefaultValueEdit";
-import FieldsService from "../../services/FieldsService/FieldsService";
+import FieldsService from "../../services/FieldsService";
 import update from 'immutability-helper';
 import moment from "moment";
 
@@ -97,7 +97,10 @@ class FieldsTable extends Component {
                     style={{minWidth: "600px"}}
                     icons={tableIcons}
                     columns={[
-                        {title: 'Name', field: 'name'},
+                        {
+                            title: 'Name',
+                            field: 'name'
+                        },
                         {
                             title: 'Type',
                             field: 'type',
@@ -105,7 +108,10 @@ class FieldsTable extends Component {
                             editable: 'onAdd',
                             editComponent: t => this.renderFieldTypeEdit(t)
                         },
-                        {title: 'Match Text', field: 'matchText'},
+                        {
+                            title: 'Match Text',
+                            field: 'matchText'
+                        },
                         {
                             title: 'Default Value',
                             field: 'defaultValue',

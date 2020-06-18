@@ -7,9 +7,9 @@ import FieldValueGroup from "../../../models/FieldValueGroup";
 import Button from "@material-ui/core/Button";
 import AddFieldGroup from "./AddFieldGroup";
 import {withSnackbar} from "notistack";
-import FieldGroupsService from "../../../services/FieldsService/FieldGroupsService";
+import FieldGroupsService from "../../../services/FieldGroupsService";
 import FieldValueGroupSection from "./FieldValueGroupForm";
-import FieldValueGroupsService from "../../../services/FieldsService/FieldValueGroupsService";
+import FieldValueGroupsService from "../../../services/FieldValueGroupsService";
 import MainContainer from "../../common/MainContainer";
 
 class PatientForm extends Component {

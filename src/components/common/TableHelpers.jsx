@@ -16,6 +16,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import Save from "@material-ui/icons/Save";
 import Delete from "@material-ui/icons/Delete";
 import PageviewIcon from "@material-ui/icons/Pageview";
+import Folder from '@material-ui/icons/Folder';
 
 export const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -37,6 +38,7 @@ export const tableIcons = {
     Save: forwardRef((props, ref) => <Save {...props} ref={ref} />),
     Delete: forwardRef((props, ref) => <Delete {...props} ref={ref} />),
     PageviewIcon: forwardRef((props, ref) => <PageviewIcon {...props} ref={ref} />),
+    Folder: forwardRef((props, ref) => <Folder {...props} ref={ref} />),
 };
 
 export const tableStyles = (theme) => ({

@@ -10,7 +10,11 @@ const isDev = require('electron-is-dev');
 let mainWindow;
 
 function createWindow() {
-    mainWindow = new BrowserWindow({width: 1000, height: 750});
+    mainWindow = new BrowserWindow({
+        width: 1000, height: 750, webPreferences: {
+            nodeIntegration: true
+        }
+    });
     mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
     if (isDev) {
         // Open the DevTools.
@@ -26,8 +30,8 @@ function runWinApi() {
     var dirPath = app.getAppPath();
     var apiPath = path.join(dirPath, 'api-bin/DrDocx-API.exe');
 
-    child(apiPath, function(err, data) {
-        if(err){
+    child(apiPath, function (err, data) {
+        if (err) {
             console.error(err);
             return;
         }
@@ -46,8 +50,7 @@ app.on('ready', () => {
             console.log(error);
             createWindow();
         });
-    }
-    else {
+    } else {
         createWindow();
     }
 });

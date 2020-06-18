@@ -1,5 +1,5 @@
 import axios from "axios";
-import {fieldGroupApiUrl, fieldGroupDefaultsApiUrl, fieldGroupsApiUrl} from "../service-routes";
+import {fieldGroupApiUrl, fieldGroupDefaultsApiUrl, fieldGroupsApiUrl} from "./service-routes";
 
 class FieldGroupsService {
     static fieldGroupUrl(id) {

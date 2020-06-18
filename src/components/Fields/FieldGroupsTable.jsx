@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
-import FieldGroupsService from "../../services/FieldsService/FieldGroupsService";
+import FieldGroupsService from "../../services/FieldGroupsService";
 import MaterialTable from "material-table";
 import {tableIcons, tableStyles} from "../common/TableHelpers";
 import FieldsTable from "./FieldsTable";
@@ -29,7 +29,7 @@ class FieldGroupsTable extends Component {
             const groupToUpdateIndex = this.state.fieldGroups.findIndex(fg => fg.id === oldGroup.id);
             if (groupToUpdateIndex >= 0) {
                 const newFieldGroupsState = update(this.state.fieldGroups, {
-                    $splice: [[groupToUpdateIndex, 1, fieldGroupResponse]]
+                    $splice: [[groupToUpdateIndex, 1, newGroup]]
                 });
                 this.setState({fieldGroups: newFieldGroupsState});
             }
@@ -76,7 +76,8 @@ class FieldGroupsTable extends Component {
                     icons={tableIcons}
                     columns={[
                         {title: 'Name', field: 'name'},
-                        {title: 'Description', field: 'description'}
+                        {title: 'Description', field: 'description'},
+                        {title: 'Is Default', field: 'isDefaultGroup', type: 'boolean'}
                     ]}
                     data={this.state.fieldGroups}
                     title=""

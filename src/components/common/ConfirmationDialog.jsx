@@ -11,8 +11,27 @@ class ConfirmationDialog extends Component {
     render() {
         return (
             <Fragment>
-
-
+                <Dialog
+                    open={this.props.open}
+                    onClose={() => this.props.confirmDelete(false)}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{this.props.confirmTitle || "Are you sure?"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {this.props.confirmBodyText || "This action cannot be undone."}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => this.props.confirmDelete(false)} color="default">
+                            {this.props.cancelButtonText || "Cancel"}
+                        </Button>
+                        <Button onClick={() => this.props.confirmDelete(true)} color="secondary" autoFocus>
+                            {this.props.confirmButtonText || "Delete"}
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Fragment>
         );
     }
