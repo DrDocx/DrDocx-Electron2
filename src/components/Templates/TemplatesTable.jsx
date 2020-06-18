@@ -110,6 +110,7 @@ class TemplatesTable extends Component {
                     options={{
                         actionsColumnIndex: -1
                     }}
+                    localization={{body: {editRow: {deleteText: 'Are you sure you want to delete this report template?'}}}}
                     editable={{
                         onRowAddCancelled: rowData =>
                             this.setState({currentFile: null}),
