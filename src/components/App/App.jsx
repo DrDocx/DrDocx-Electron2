@@ -9,6 +9,8 @@ import {withStyles, ThemeProvider} from "@material-ui/core";
 import {appTheme, styles} from "./AppStyle"
 import clsx from 'clsx';
 import {SnackbarProvider} from "notistack";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import PingService from "../../services/PingService";
 
 // TODO: Make this work
 export const TitleContext = React.createContext({});
@@ -16,7 +18,11 @@ export const TitleContext = React.createContext({});
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {title: this.props.title ?? "", navigatorOpen: true};
+        this.state = {title: this.props.title ?? "", navigatorOpen: true, apiLaunchAttempts: 0, apiReady: false};
+    }
+
+    componentDidMount() {
+        this.pingApi()
     }
 
     setTitle = (title) => {
@@ -29,6 +35,33 @@ class App extends Component {
             }
         ));
     };
+
+    pingApi = () => {
+        PingService.pingApi().then(response => {
+            this.setState({apiReady: true})
+        }).catch(error => {
+            this.setState(oldState => ({
+                apiLaunchAttempts: oldState.apiLaunchAttempts + 1
+            }), (newState) => {
+                if (newState.apiLaunchAttempts <= 5) {
+                    new Promise(r => setTimeout(r, 250)).then(() => {
+                        this.pingApi();
+                    });
+                }
+            })
+        })
+    }
+
+    renderMain() {
+        if (this.state.apiReady || this.state.apiLaunchAttempts > 5) {
+            return (
+                <Main/>
+            );
+        }
+        return (
+            <LinearProgress/>
+        );
+    }
 
     // TODO: There has to be a way to refactor all these providers so we don't just nest these infinitely
     render() {
@@ -47,8 +80,9 @@ class App extends Component {
                             </div>
                             <Navigator open={this.state.navigatorOpen} toggleNavigator={this.toggleNavigator}
                                        activeTab={'Patients'} switchTab={this.setTitle}/>
-                            <div className={clsx(classes.notNavShift, !this.state.navigatorOpen && classes.notNavSteady)}>
-                                <Main/>
+                            <div
+                                className={clsx(classes.notNavShift, !this.state.navigatorOpen && classes.notNavSteady)}>
+                                {this.renderMain()}
                                 <Footer className={classes.footer}/>
                             </div>
                         </div>
