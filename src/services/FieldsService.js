@@ -1,5 +1,5 @@
 import axios from "axios";
-import {fieldApiUrl, fieldsApiUrl} from "../service-routes";
+import {fieldApiUrl, fieldsApiUrl} from "./service-routes";
 
 class FieldsService {
     static async getFields() {

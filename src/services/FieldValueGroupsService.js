@@ -1,5 +1,5 @@
 import axios from "axios";
-import {fieldValueGroupApiUrl, fieldValueGroupsApiUrl, fieldValueGroupsBatchApiUrl} from "../service-routes";
+import {fieldValueGroupApiUrl, fieldValueGroupsApiUrl, fieldValueGroupsBatchApiUrl} from "./service-routes";
 
 class FieldValueGroupsService {
     static async getFieldValueGroups() {

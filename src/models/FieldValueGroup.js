@@ -1,4 +1,4 @@
-import FieldGroupsService from "../services/FieldsService/FieldGroupsService";
+import FieldGroupsService from "../services/FieldGroupsService";
 import update from "immutability-helper";
 import FieldValue from "./FieldValue";
 

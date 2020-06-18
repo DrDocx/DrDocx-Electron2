@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import PatientForm from "./PatientForm";
 import Patient from "../../../models/Patient";
-import PatientsService from "../../../services/PatientsService/PatientsService";
+import PatientsService from "../../../services/PatientsService";
 import {withRouter} from "react-router-dom";
 import {withSnackbar} from "notistack";
 

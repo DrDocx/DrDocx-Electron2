@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import {Link, withRouter} from "react-router-dom";
 import MaterialTable from "material-table";
 import ConfirmationDialog from "../common/ConfirmationDialog";
-import PatientsService from "../../services/PatientsService/PatientsService";
+import PatientsService from "../../services/PatientsService";
 import {withSnackbar} from "notistack";
 import {tableIcons} from "../common/TableHelpers";
 

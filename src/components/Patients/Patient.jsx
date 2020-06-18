@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import {Switch, Route, useRouteMatch, useParams} from 'react-router-dom';
-import PatientsService from '../../services/PatientsService/PatientsService';
+import PatientsService from '../../services/PatientsService';
 import PatientsIndex from "./PatientsIndex";
 import ShowPatient from "./ShowPatient";
 import EditPatient from "./Forms/EditPatient";
