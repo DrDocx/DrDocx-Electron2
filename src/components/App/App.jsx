@@ -42,8 +42,8 @@ class App extends Component {
         }).catch(error => {
             this.setState(oldState => ({
                 apiLaunchAttempts: oldState.apiLaunchAttempts + 1
-            }), (newState) => {
-                if (newState.apiLaunchAttempts <= 5) {
+            }), () => {
+                if (this.state.apiLaunchAttempts <= 5) {
                     new Promise(r => setTimeout(r, 250)).then(() => {
                         this.pingApi();
                     });

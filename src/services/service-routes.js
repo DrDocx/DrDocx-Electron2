@@ -1,4 +1,4 @@
-export const apiUrl = "https://localhost:1211/api";
+export const apiUrl = "http://localhost:1211/api";
 export const fullUrl = (route) => { return `${apiUrl}${route}` };
 export const idUrl = (baseUrl, id) => { return `${baseUrl}/${id}` };
 
@@ -22,4 +22,4 @@ export const testApiUrl = (id) => idUrl(testsApiUrl, id);
 
 export const reportsApiUrl = fullUrl("/report");
 export const reportApiUrl = (id) => idUrl(reportsApiUrl, id);
-export const reportsUploadApiUrl = `${reportsApiUrl}/upload`
+export const reportsUploadApiUrl = `${reportsApiUrl}/upload`;
