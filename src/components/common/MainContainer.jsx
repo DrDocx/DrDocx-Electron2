@@ -16,7 +16,6 @@ class MainContainer extends Component {
                         spacing={2}
                     >
                         <br/>
-
                         <Grid item container alignContent={"flex-start"} alignItems={"flex-start"}>
                             <Typography variant="h5" style={{width: "100%"}}>{this.props.title}</Typography>
                         </Grid>

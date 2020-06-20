@@ -38,7 +38,7 @@ class FieldValueForm extends Component {
 
     renderText() {
         return (
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6}>
                 {/*<br/>*/}
                 <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
                     <TextField onChange={event => this.updateFieldTextValue(event)}
@@ -52,7 +52,6 @@ class FieldValueForm extends Component {
     renderParagraph() {
         return (
             <Grid item xs={12}>
-            {/*<br/>*/}
                 <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
                     <TextField
                         id="outlined-multiline-static"
@@ -75,18 +74,17 @@ class FieldValueForm extends Component {
             date = new Date();
         }
         return (
-            <Grid item xs={12} sm={6}>
-                {/*<br/>*/}
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-                <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
-                    <DatePicker
-                        label={this.fieldName()}
-                        value={date}
-                        onChange={event => this.updateFieldTextValue(event)}
-                        openTo="year"
-                        format="MM/DD/yyyy"/>
-                </Tooltip>
-            </MuiPickersUtilsProvider>
+            <Grid item xs={6}>
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
+                        <DatePicker
+                            label={this.fieldName()}
+                            value={date}
+                            onChange={event => this.updateFieldTextValue(event)}
+                            openTo="year"
+                            format="MM/DD/yyyy"/>
+                    </Tooltip>
+                </MuiPickersUtilsProvider>
             </Grid>
         )
     }

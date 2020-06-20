@@ -29,5 +29,11 @@ export const patientFormStyles = (theme) => ({
     paragraphFieldValue: {
         minWidth: 300,
         width: 500
+    },
+    fieldValueGroupContainer: {
+        root: {
+            flexGrow: 1,
+            padding: theme.spacing(2)
+        }
     }
 });

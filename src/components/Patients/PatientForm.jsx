@@ -11,6 +11,7 @@ import FieldGroupsService from "../../services/FieldGroupsService";
 import FieldValueGroupSection from "./PatientForm/FieldValueGroupForm";
 import FieldValueGroupsService from "../../services/FieldValueGroupsService";
 import MainContainer from "../common/MainContainer";
+import Grid from "@material-ui/core/Grid";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -87,17 +88,26 @@ class PatientForm extends Component {
         return (
             <Fragment>
                 <MainContainer title={headerStr}>
-                    <TextField onChange={event => this.changeName(event)} value={this.state.patient.name} label="Name"/>
+                    <Grid container alignItems="flex-start" alignContent={"flex-start"} style={{width: "600px"}}>
+                        <TextField onChange={event => this.changeName(event)} value={this.state.patient.name}
+                                   label="Name"/>
+                    </Grid>
                     {this.state.patient.fieldValueGroups.map(fvg =>
                         <FieldValueGroupSection key={fvg.fieldGroupId} fieldValueGroup={fvg}
                                                 setFvgState={this.modifyFvg}
                                                 removeFvg={this.removeFvg}/>
                     )}
-                    {this.state.fieldGroupOptions &&
-                    <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
-                                   createFvg={this.newFvg}/>}
-                    <Button onClick={() => this.savePatient()} variant="contained"
-                            color="primary">{savePatientStr}</Button>
+                    {/*<Grid container direction="column" alignItems="flex-start" alignContent={"flex-start"} style={{width: "600px"}} spacing={1}>*/}
+                    {/*    <Grid item>*/}
+                        {this.state.fieldGroupOptions &&
+                        <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
+                                       createFvg={this.newFvg}/>}
+                        {/*</Grid>*/}
+                        {/*<Grid item>*/}
+                        <Button onClick={() => this.savePatient()} variant="contained"
+                                color="primary">{savePatientStr}</Button>
+                    {/*    </Grid>*/}
+                    {/*</Grid>*/}
                 </MainContainer>
             </Fragment>
         );
