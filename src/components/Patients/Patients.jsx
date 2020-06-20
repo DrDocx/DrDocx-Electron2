@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import {Switch, Route, useRouteMatch} from 'react-router-dom';
 import PatientsIndex from "./PatientsIndex";
 import Patient from "./Patient";
-import NewPatient from "./Forms/NewPatient";
+import NewPatient from "./NewPatient";
 
 class Patients extends Component {
 

@@ -1,6 +1,6 @@
 {
-  "name": "DrDocx-Electron",
-  "version": "0.1.0",
+  "name": "DrDocx",
+  "version": "0.1.2",
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
@@ -23,6 +23,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
+    "react-router-transition": "^2.0.0",
     "react-scripts": "3.4.1"
   },
   "scripts": {
@@ -57,7 +58,7 @@
     "extraFiles": [
       "api-bin"
     ],
-    "nsis":{
+    "nsis": {
       "oneClick": false
     }
   },

@@ -42,8 +42,8 @@ class App extends Component {
         }).catch(error => {
             this.setState(oldState => ({
                 apiLaunchAttempts: oldState.apiLaunchAttempts + 1
-            }), (newState) => {
-                if (newState.apiLaunchAttempts <= 3) {
+            }), () => {
+                if (this.state.apiLaunchAttempts <= 5) {
                     new Promise(r => setTimeout(r, 250)).then(() => {
                         this.pingApi();
                     });
@@ -53,7 +53,7 @@ class App extends Component {
     }
 
     renderMain() {
-        if (this.state.apiReady || this.state.apiLaunchAttempts > 3) {
+        if (this.state.apiReady || this.state.apiLaunchAttempts > 5) {
             return (
                 <Main/>
             );
