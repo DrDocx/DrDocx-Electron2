@@ -38,19 +38,21 @@ class FieldValueForm extends Component {
 
     renderText() {
         return (
-            <Fragment>
+            <Grid item xs={12} sm={6}>
+                {/*<br/>*/}
                 <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
                     <TextField onChange={event => this.updateFieldTextValue(event)}
                                value={this.fieldTextValue()}
                                label={this.fieldName()}/>
                 </Tooltip>
-            </Fragment>
+            </Grid>
         );
     }
 
     renderParagraph() {
         return (
-            <Fragment>
+            <Grid item xs={12}>
+            {/*<br/>*/}
                 <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
                     <TextField
                         id="outlined-multiline-static"
@@ -63,7 +65,7 @@ class FieldValueForm extends Component {
                         variant="outlined"
                     />
                 </Tooltip>
-            </Fragment>
+            </Grid>
         );
     }
 
@@ -73,6 +75,8 @@ class FieldValueForm extends Component {
             date = new Date();
         }
         return (
+            <Grid item xs={12} sm={6}>
+                {/*<br/>*/}
             <MuiPickersUtilsProvider utils={MomentUtils}>
                 <Tooltip title={`Match Text: {{${this.fieldMatchText()}}}`}>
                     <DatePicker
@@ -83,6 +87,7 @@ class FieldValueForm extends Component {
                         format="MM/DD/yyyy"/>
                 </Tooltip>
             </MuiPickersUtilsProvider>
+            </Grid>
         )
     }
 

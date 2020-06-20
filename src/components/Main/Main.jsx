@@ -10,15 +10,12 @@ class Main extends Component {
     render() {
         return (
             <Fragment>
-                <AnimatedSwitch atEnter={{opacity: 0}}
-                        atLeave={{opacity: 0}}
-                        atActive={{opacity: 1}}
-                        className="switch-wrapper">
+                <Switch>
                     <Route exact path="/" component={Patients}/>
                     <Route path="/patients" component={Patients}/>
                     <Route path="/fields" component={Fields}/>
                     <Route path="/templates" component={Templates}/>
-                </AnimatedSwitch>
+                </Switch>
             </Fragment>
         );
     }

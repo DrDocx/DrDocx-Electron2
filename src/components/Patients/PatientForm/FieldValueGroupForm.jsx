@@ -41,15 +41,15 @@ class FieldValueGroupForm extends Component {
                         <Typography className={classes.fieldGroupDescription} color="textSecondary">
                             {this.props.fieldValueGroup.fieldGroup.description}
                         </Typography>
+                        <br />
                         <Grid container direction="column"
                               alignItems="flex-start"
                               alignContent="flex-start"
                               spacing={2}>
                             {this.props.fieldValueGroup.fieldValues.map(fv =>
-                                <Grid key={fv.fieldId} item xs={12}>
-                                    <br/>
-                                    <FieldValueForm setFieldValue={this.setFieldValue} fieldValue={fv}/>
-                                </Grid>
+
+                                    <FieldValueForm key={fv.fieldId} setFieldValue={this.setFieldValue} fieldValue={fv}/>
+
                             )}
                         </Grid>
                     </CardContent>

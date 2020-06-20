@@ -7,17 +7,18 @@ class MainContainer extends Component {
     render() {
         return (
             <Fragment>
-                <Container>
+                <Container style={{width: "100%", maxWidth: "100%"}}>
                     <Grid
                         container
                         direction="column"
-                        alignItems="flex-start"
-                        alignContent="flex-start"
+                        alignItems="center"
+                        alignContent="center"
                         spacing={2}
                     >
                         <br/>
-                        <Grid item xs={12}>
-                            <Typography variant="h5" align="left">{this.props.title}</Typography>
+
+                        <Grid item container alignContent={"flex-start"} alignItems={"flex-start"}>
+                            <Typography variant="h5" style={{width: "100%"}}>{this.props.title}</Typography>
                         </Grid>
                         {React.Children.map(this.props.children, (child) =>
                             <Fragment>
