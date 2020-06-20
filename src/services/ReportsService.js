@@ -1,5 +1,5 @@
 import axios from "axios";
-import {reportApiUrl, reportsApiUrl, reportsUploadApiUrl} from "./service-routes";
+import {reportApiUrl, reportsApiUrl, reportsDownloadApiUrl, reportsUploadApiUrl} from "./service-routes";
 
 class ReportsService {
     static async getReportTemplates() {
@@ -25,6 +25,11 @@ class ReportsService {
     static async deleteReportTemplate(id) {
         return axios.delete(reportApiUrl(id)).then(response => response.data);
     }
+
+    static async generateReport(reportTemplateId, patientId) {
+        return axios.get(reportsDownloadApiUrl(reportTemplateId, patientId)).then(response => response.data);
+    }
 }
 
 export default ReportsService;
+
