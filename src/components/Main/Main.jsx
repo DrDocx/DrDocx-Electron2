@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import Patients from "../Patients/Patients";
 import Fields from "../Fields/Fields";
 import Templates from "../Templates/Templates";
-import {AnimatedSwitch} from "react-router-transition";
+import Tests from "../Tests/Tests";
 
 class Main extends Component {
     render() {
@@ -14,6 +14,7 @@ class Main extends Component {
                     <Route exact path="/" component={Patients}/>
                     <Route path="/patients" component={Patients}/>
                     <Route path="/fields" component={Fields}/>
+                    <Route path="/tests" component={Tests} />
                     <Route path="/templates" component={Templates}/>
                 </Switch>
             </Fragment>
