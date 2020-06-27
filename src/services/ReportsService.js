@@ -27,7 +27,7 @@ class ReportsService {
     }
 
     static async generateReport(reportTemplateId, patientId) {
-        return axios.get(reportsDownloadApiUrl(reportTemplateId, patientId)).then(response => response.data);
+        return axios.get(reportsDownloadApiUrl(reportTemplateId, patientId), {responseType: "blob"});
     }
 }
 

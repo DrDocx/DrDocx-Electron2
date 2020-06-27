@@ -21,7 +21,16 @@ class CreateReport extends Component {
 
     generateReport = (reportTemplateId) => {
         ReportsService.generateReport(reportTemplateId, this.props.patient.id).then(reportResponse => {
-            // TODO: Add file save dialog/logic here.
+            const fileNameRegex = /filename=(.+?);/;
+            const contentHeader = reportResponse.headers['content-disposition'];
+            const fileName = contentHeader.match(fileNameRegex)[1];
+            const downloadUrl = window.URL.createObjectURL(new Blob([reportResponse.data]));
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', fileName);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
         });
     }
 
