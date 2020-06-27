@@ -20,6 +20,9 @@ export const fieldValueGroupApiUrl = (id) => idUrl(fieldValueGroupsApiUrl, id);
 export const testsApiUrl = fullUrl("/test");
 export const testApiUrl = (id) => idUrl(testsApiUrl, id);
 
+export const testGroupsApiUrl = fullUrl("/testGroup");
+export const testGroupApiUrl = (id) => idUrl(testGroupsApiUrl, id);
+
 export const reportsApiUrl = fullUrl("/report");
 export const reportApiUrl = (id) => idUrl(reportsApiUrl, id);
 export const reportsUploadApiUrl = `${reportsApiUrl}/upload`;

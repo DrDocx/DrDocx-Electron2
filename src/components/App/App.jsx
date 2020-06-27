@@ -76,12 +76,14 @@ class App extends Component {
                                 <Header
                                     title={this.state.title}
                                     toggleNavigator={this.toggleNavigator}
+                                    navigatorOpen={this.state.navigatorOpen}
                                 />
                             </div>
                             <Navigator open={this.state.navigatorOpen} toggleNavigator={this.toggleNavigator}
                                        activeTab={'Patients'} switchTab={this.setTitle}/>
                             <div
-                                className={clsx(classes.notNavShift, !this.state.navigatorOpen && classes.notNavSteady)}>
+                                className={clsx(classes.notNavShift, !this.state.navigatorOpen && classes.notNavSteady)}
+                                style={{marginTop: "50px"}}>
                                 {this.renderMain()}
                                 <Footer className={classes.footer}/>
                             </div>

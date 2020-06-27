@@ -130,18 +130,18 @@ export const styles = createStyles({
 		flex: 1,
 		display: 'flex',
 		flexDirection: 'column',
-		transition: theme.transitions.create(['margin'], {
+		transition: theme.transitions.create(['padding'], {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen
 		}),
-		marginLeft: navigatorWidth
+		paddingLeft: navigatorWidth
 	},
 	notNavSteady: {
-		transition: theme.transitions.create(['margin'], {
+		transition: theme.transitions.create(['padding'], {
 			easing: theme.transitions.easing.easeOut,
 			duration: theme.transitions.duration.enteringScreen
 		}),
-		marginLeft: 0
+		paddingLeft: 0
 	},
 	main: {
 		flex: 1,
