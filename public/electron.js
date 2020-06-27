@@ -26,7 +26,7 @@ function createWindow() {
 function runWinApi() {
     var child = require('child_process').execFile;
     var dirPath = app.getAppPath();
-    var apiPath = path.join(dirPath, '..', '..', 'api-bin\\DrDocx-API.exe');
+    var apiPath = path.join(dirPath, '..', '..', 'api-bin', 'DrDocx-API.exe');
 
     child(apiPath, function (err, data) {
         if (err) {

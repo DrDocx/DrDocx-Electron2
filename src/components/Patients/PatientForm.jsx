@@ -12,6 +12,8 @@ import FieldValueGroupSection from "./PatientForm/FieldValueGroupForm";
 import FieldValueGroupsService from "../../services/FieldValueGroupsService";
 import MainContainer from "../common/MainContainer";
 import Grid from "@material-ui/core/Grid";
+import Tooltip from "@material-ui/core/Tooltip";
+import {MuiPickersUtilsProvider} from "@material-ui/pickers";
 
 class PatientForm extends Component {
     constructor(props) {
@@ -83,14 +85,16 @@ class PatientForm extends Component {
     };
 
     render() {
-        const headerStr = this.state.patient.id === 0 ? "New Patient" : "Update Patient";
+        const headerStr = this.state.patient.id === 0 ? "New Patient" : `Update ${this.state.patient.name}`;
         const savePatientStr = this.state.patient.id === 0 ? "Create Patient" : "Save Patient";
         return (
             <Fragment>
                 <MainContainer title={headerStr}>
                     <Grid container alignItems="flex-start" alignContent={"flex-start"} style={{width: "600px"}}>
-                        <TextField onChange={event => this.changeName(event)} value={this.state.patient.name}
-                                   label="Name"/>
+                        <Tooltip title={`Match Text: {{NAME}}, {{FIRST_NAME}}, {{LAST_NAME}}`}>
+                            <TextField onChange={event => this.changeName(event)} value={this.state.patient.name}
+                                       label="Name"/>
+                        </Tooltip>
                     </Grid>
                     {this.state.patient.fieldValueGroups.map(fvg =>
                         <FieldValueGroupSection key={fvg.fieldGroupId} fieldValueGroup={fvg}
@@ -99,13 +103,13 @@ class PatientForm extends Component {
                     )}
                     {/*<Grid container direction="column" alignItems="flex-start" alignContent={"flex-start"} style={{width: "600px"}} spacing={1}>*/}
                     {/*    <Grid item>*/}
-                        {this.state.fieldGroupOptions &&
-                        <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
-                                       createFvg={this.newFvg}/>}
-                        {/*</Grid>*/}
-                        {/*<Grid item>*/}
-                        <Button onClick={() => this.savePatient()} variant="contained"
-                                color="primary">{savePatientStr}</Button>
+                    {this.state.fieldGroupOptions &&
+                    <AddFieldGroup fieldGroups={this.state.fieldGroupOptions}
+                                   createFvg={this.newFvg}/>}
+                    {/*</Grid>*/}
+                    {/*<Grid item>*/}
+                    <Button onClick={() => this.savePatient()} variant="contained"
+                            color="primary">{savePatientStr}</Button>
                     {/*    </Grid>*/}
                     {/*</Grid>*/}
                 </MainContainer>

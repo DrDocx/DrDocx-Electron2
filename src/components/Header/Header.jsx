@@ -9,13 +9,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {withRouter} from "react-router-dom";
+import {withStyles} from "@material-ui/core";
+import {appTheme, styles} from "../App/AppStyle"
+import clsx from 'clsx';
 
 class Header extends Component {
 
     render() {
+        const {classes} = this.props;
         return (
             <Fragment>
-                <AppBar position="static">
+                <AppBar position="fixed" className={clsx(classes.notNavShift, !this.props.navigatorOpen && classes.notNavSteady)}>
                     <Toolbar>
                         <IconButton edge="start" color="inherit" aria-label="menu"
                                     onClick={this.props.toggleNavigator}>
@@ -29,6 +33,7 @@ class Header extends Component {
                                     onClick={this.props.history.goForward}>
                             <ArrowForwardIcon/>
                         </IconButton>
+                        <div style={{fontSize: "18px"}}>{this.props.title}</div>
                     </Toolbar>
                 </AppBar>
             </Fragment>
@@ -38,7 +43,8 @@ class Header extends Component {
 
 Header.propTypes = {
     title: PropTypes.string.isRequired,
-    toggleNavigator: PropTypes.func.isRequired
+    toggleNavigator: PropTypes.func.isRequired,
+    navigatorOpen: PropTypes.bool.isRequired
 };
 
-export default withRouter(Header);
+export default withStyles(styles)(withRouter(Header));
