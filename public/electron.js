@@ -6,6 +6,8 @@ const path = require('path');
 const isDev = require('electron-is-dev');
 const child = require('child_process').execFile;
 
+const { autoUpdater } = require("electron-updater")
+
 let mainWindow;
 var apiProcess;
 
@@ -28,6 +30,7 @@ function createWindow() {
 app.on('ready', () => {
     runApi();
     createWindow();
+    autoUpdater.checkForUpdatesAndNotify();
 });
 
 function runApi() {

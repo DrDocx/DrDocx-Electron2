@@ -15,6 +15,7 @@
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
     "electron-is-dev": "^1.2.0",
+    "electron-updater": "^4.3.1",
     "immutability-helper": "^3.0.2",
     "material-table": "^1.61.0",
     "moment": "^2.25.3",
@@ -31,7 +32,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "dist": "react-scripts build && electron-builder"
+    "dist": "react-scripts build && electron-builder --publish never",
+    "release": "react-scripts build && electron-builder --publish always"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -41,13 +43,21 @@
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
+    "dotenv": "^8.2.0",
     "electron": "^8.2.5",
     "electron-builder": "^22.6.0",
+    "electron-notarize": "^1.0.0",
     "wait-on": "^4.0.2"
   },
   "build": {
     "extends": null,
     "appId": "com.faizsurani.drdocx",
+    "afterSign": "osx/notarize.js",
+    "publish": [{
+      "provider": "github",
+      "owner": "DrDocx",
+      "repo": "DrDocx-Electron2"
+    }],
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico"
