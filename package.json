@@ -47,9 +47,14 @@
   },
   "build": {
     "extends": null,
+    "appId": "com.faizsurani.drdocx",
     "win": {
       "target": "nsis",
       "icon": "build/icon.ico"
+    },
+    "mac": {
+      "hardenedRuntime": true,
+      "entitlements": "./osx/entitlements.mac.inherit.plist"
     },
     "files": [
       "public/",
