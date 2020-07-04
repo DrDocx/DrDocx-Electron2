@@ -43,7 +43,8 @@ class PatientForm extends Component {
 
     newFvg = async (fieldGroupId) => {
         if (fieldGroupId === 0 || fieldGroupId === '') {
-            this.props.enqueueSnackbar("You must select a field group to add.", {variant: "error"})
+            this.props.enqueueSnackbar("You must select a field group to add.", {variant: "error"});
+            return;
         }
         const fvIndex = this.state.fieldGroupOptions.findIndex(fg => fg.id === fieldGroupId);
         const fvg = await FieldValueGroup.newFieldValueGroup(fieldGroupId);
