@@ -51,6 +51,7 @@
   },
   "build": {
     "extends": null,
+    "productName": "DrDocx",
     "appId": "com.faizsurani.drdocx",
     "afterSign": "osx/notarize.js",
     "publish": [{
@@ -59,12 +60,14 @@
       "repo": "DrDocx-Electron2"
     }],
     "win": {
-      "target": "nsis",
-      "icon": "build/icon.ico"
+      "target": "nsis"
     },
     "mac": {
       "hardenedRuntime": true,
       "entitlements": "./osx/entitlements.mac.inherit.plist"
+    },
+    "directories": {
+      "buildResources": "assets"
     },
     "files": [
       "public/",

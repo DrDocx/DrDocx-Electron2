@@ -13,7 +13,7 @@ var apiProcess;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 1000, height: 750, webPreferences: {
+        width: 1100, height: 800, webPreferences: {
             nodeIntegration: true
         }
     });
@@ -28,14 +28,16 @@ function createWindow() {
 }
 
 app.on('ready', () => {
-    runApi();
+    if (!isDev) {
+        runApi();
+        autoUpdater.checkForUpdatesAndNotify();
+    }
     createWindow();
-    autoUpdater.checkForUpdatesAndNotify();
 });
 
 function runApi() {
-    var dirPath = app.getAppPath();
-    var apiPath;
+    const dirPath = app.getAppPath();
+    let apiPath;
     if (process.platform === 'win32') {
         apiPath = path.join(dirPath, '..', '..', 'api-bin', 'DrDocx-API.exe');
     }
@@ -47,7 +49,6 @@ function runApi() {
     apiProcess = child(apiPath, function (err, data) {
         if (err) {
             console.error(err);
-            return;
         }
     });
 }
