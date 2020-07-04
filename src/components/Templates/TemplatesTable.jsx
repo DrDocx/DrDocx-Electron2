@@ -77,6 +77,7 @@ class TemplatesTable extends Component {
                     <input
                         onChange={(event) => this.setState({currentFile: event.target.files[0]})}
                         type="file"
+                        accept={".docx,.dotx"}
                         style={{display: "none"}}
                     />
                 </Button>

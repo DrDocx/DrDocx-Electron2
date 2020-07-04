@@ -92,7 +92,7 @@ class FieldsTable extends Component {
 
     render() {
         return (
-            <Fragment>
+            <div style={{padding: "20px"}}>
                 <MaterialTable
                     style={{minWidth: "600px"}}
                     icons={tableIcons}
@@ -151,7 +151,7 @@ class FieldsTable extends Component {
                             })
                     }}
                 />
-            </Fragment>
+            </div>
         );
     }
 }
