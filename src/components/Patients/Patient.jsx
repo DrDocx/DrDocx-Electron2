@@ -5,6 +5,7 @@ import PatientsService from '../../services/PatientsService';
 import PatientsIndex from "./PatientsIndex";
 import ShowPatient from "./ShowPatient";
 import EditPatient from "./EditPatient";
+import {withSnackbar} from "notistack";
 
 class Patient extends Component {
     constructor(props) {
@@ -18,9 +19,18 @@ class Patient extends Component {
 
     updatePatient = () => {
         PatientsService.getPatient(this.state.patientId).then(patientResponse => {
-            this.setState({patient: patientResponse});
+           this.setState({patient: patientResponse});
         });
     };
+
+    updatePatientOnSave = () => {
+        PatientsService.getPatient(this.state.patientId).then(patientResponse => {
+            this.setState({patient: patientResponse}, () => {
+                this.props.history.push(`/patients/${patientResponse.id}`)
+                this.props.enqueueSnackbar("Patient successfully updated!", {variant: "success"})
+            });
+        });
+    }
 
     render() {
         const matchPath = this.props.match.path;
@@ -32,7 +42,7 @@ class Patient extends Component {
                         <ShowPatient patient={this.state.patient}/>
                     </Route>
                     <Route path={`${matchPath}/edit`}>
-                        <EditPatient patient={this.state.patient} updatePatient={this.updatePatient}/>
+                        <EditPatient patient={this.state.patient} updatePatient={this.updatePatientOnSave}/>
                     </Route>
                 </Switch>
                 }
@@ -45,4 +55,4 @@ Patient.propTypes = {
     match: PropTypes.object.isRequired
 };
 
-export default Patient;
+export default withSnackbar(Patient);

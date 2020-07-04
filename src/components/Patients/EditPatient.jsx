@@ -9,8 +9,6 @@ class EditPatient extends Component {
     savePatient = (patient) => {
         PatientsService.updatePatient(patient).then((response) => {
             this.props.updatePatient();
-            this.props.history.push(`/patients/${response.id}`)
-            this.props.enqueueSnackbar("Patient successfully updated!", {variant: "success"})
         });
     };
 
