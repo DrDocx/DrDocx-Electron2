@@ -23,8 +23,10 @@ class ShowPatient extends Component {
             <Fragment>
                 <MainContainer title={p.name}>
                     <Grid container alignItems="flex-start" alignContent={"flex-start"} style={{width: "600px"}}>
-                        <TextField disabled value={this.state.patient.name}
-                                   label="Name"/>
+                        <Tooltip title={`Match Text: {{NAME}}, {{FIRST_NAME}}, {{LAST_NAME}}`}>
+                            <TextField disabled value={this.state.patient.name}
+                                       label="Name"/>
+                        </Tooltip>
                     </Grid>
                     {this.state.patient.fieldValueGroups.map(fvg =>
                         <StaticFieldValueGroupSection key={fvg.fieldGroupId} fieldValueGroup={fvg}/>
