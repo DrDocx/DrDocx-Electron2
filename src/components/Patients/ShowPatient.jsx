@@ -10,7 +10,6 @@ import { TextField, Button } from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import Grid from "@material-ui/core/Grid";
 
-
 class ShowPatient extends Component {
 
 	constructor(props) {
@@ -22,6 +21,9 @@ class ShowPatient extends Component {
 		const p = this.props.patient;
 		return (
 			<Fragment>
+				<div class='testClass'>
+					Testing class styling
+				</div>
 				<MainContainer title={p.name}>
 					<Grid container alignItems="flex-start" alignContent={"flex-start"} style={{ width: "600px" }}>
 						<TextField disabled value={this.state.patient.name}

@@ -1,5 +1,7 @@
 // import {makeStyles} from "@material-ui/core/styles";
 
+import { red } from "@material-ui/core/colors";
+
 export const patientFormStyles = (theme) => ({
     formControl: {
         margin: theme.spacing(1),
@@ -35,5 +37,5 @@ export const patientFormStyles = (theme) => ({
             flexGrow: 1,
             padding: theme.spacing(2)
         }
-    }
+	},
 });
