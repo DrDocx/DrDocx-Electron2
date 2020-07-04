@@ -111,11 +111,6 @@ theme = {
 				height: 32,
 			},
 		},
-		MuiListItem: {
-			selected: {
-				textDecoration: "underline",
-			}
-		},
 	},
 };
 
