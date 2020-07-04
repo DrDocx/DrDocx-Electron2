@@ -85,7 +85,9 @@ class FieldGroupsTable extends Component {
                                                          onGroupFieldsUpdated={this.onGroupFieldsUpdated}/>}
                     onRowClick={(event, rowData, togglePanel) => togglePanel()}
                     options={{
-                        actionsColumnIndex: -1
+                        actionsColumnIndex: -1,
+                        emptyRowsWhenPaging: false,
+                        pageSize: 10
                     }}
                     localization={{body: {editRow: {deleteText: 'Are you sure you want to delete this field group?'}}}}
                     editable={{

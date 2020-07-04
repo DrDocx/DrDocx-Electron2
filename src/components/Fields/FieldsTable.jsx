@@ -122,7 +122,9 @@ class FieldsTable extends Component {
                     data={this.props.fields}
                     title="Fields"
                     options={{
-                        actionsColumnIndex: -1
+                        actionsColumnIndex: -1,
+                        emptyRowsWhenPaging: false,
+                        pageSize: 10
                     }}
                     localization={{body: {editRow: {deleteText: 'Are you sure you want to delete this field?'}}}}
                     editable={{
