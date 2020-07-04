@@ -18,7 +18,7 @@ import {navigatorWidth} from "../App/AppStyle";
 var categories = [
 	{ id: 'Patients', icon: <PeopleIcon />, route: '/patients' },
 	{ id: 'Custom Fields', icon: <InputIcon />, route: '/fields' },
-	{ id: 'Tests', icon: <AssignmentIndIcon />, route: '/tests' },
+	// { id: 'Tests', icon: <AssignmentIndIcon />, route: '/tests' },
 	{ id: 'Templates', icon: <PostAddIcon />, route: '/templates' },
 ];
 
