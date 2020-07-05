@@ -1,6 +1,6 @@
 {
   "name": "DrDocx",
-  "version": "0.1.3-rc2",
+  "version": "0.1.3-alpha",
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
