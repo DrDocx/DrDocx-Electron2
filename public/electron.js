@@ -1,15 +1,17 @@
 const electron = require('electron');
-const app = electron.app;
+const {app, Menu} = electron;
 const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
 const isDev = require('electron-is-dev');
 const child = require('child_process').execFile;
 
-const { autoUpdater } = require("electron-updater")
+const { autoUpdater } = require("electron-updater");
+autoUpdater.autoDownload = false;
 
 let mainWindow;
-var apiProcess;
+let apiProcess;
+let updater;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
@@ -17,6 +19,7 @@ function createWindow() {
             nodeIntegration: true
         }
     });
+    configureNativeMenu();
     mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
     if (isDev) {
         // Open the DevTools.
@@ -30,10 +33,20 @@ function createWindow() {
 app.on('ready', () => {
     if (!isDev) {
         runApi();
-        autoUpdater.checkForUpdatesAndNotify();
+        // autoUpdater.checkForUpdatesAndNotify();
     }
     createWindow();
 });
+
+function configureNativeMenu() {
+    let defaultMenu = Menu.getApplicationMenu()
+
+    let newMenu = new Menu();
+    defaultMenu.items
+        .filter(x => x.label !== 'Help')
+        .forEach(x => newMenu.append(x));
+    Menu.setApplicationMenu(newMenu);
+}
 
 function runApi() {
     const dirPath = app.getAppPath();
@@ -70,3 +83,43 @@ app.on('before-quit', () => {
         apiProcess.kill();
     }
 });
+
+/*
+autoUpdater.on('update-available', () => {
+    electron.dialog.showMessageBox({
+        type: 'info',
+        title: 'Found Updates',
+        message: 'Found updates, do you want update now?',
+        buttons: ['Sure', 'No']
+    }, (buttonIndex) => {
+        if (buttonIndex === 0) {
+            autoUpdater.downloadUpdate()
+        }
+        else {
+            updater.enabled = true
+            updater = null
+        }
+    })
+});
+
+autoUpdater.on('update-not-available', () => {
+    updater.enabled = true
+    updater = null
+});
+
+autoUpdater.on('update-downloaded', () => {
+    electron.dialog.showMessageBox({
+        title: 'Install Updates',
+        message: 'Updates downloaded, application will be restarted to update.'
+    }, () => {
+        setImmediate(() => autoUpdater.quitAndInstall())
+    })
+});
+
+function checkForUpdates (menuItem, focusedWindow, event) {
+    updater = menuItem
+    updater.enabled = false
+    autoUpdater.checkForUpdates()
+}
+module.exports.checkForUpdates = checkForUpdates;
+*/
