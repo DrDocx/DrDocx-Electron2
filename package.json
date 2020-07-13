@@ -57,7 +57,7 @@
     "publish": [{
       "provider": "github",
       "owner": "DrDocx",
-      "repo": "DrDocx-Electron2"
+      "repo": "DrDocx-Desktop"
     }],
     "win": {
       "target": "nsis"
