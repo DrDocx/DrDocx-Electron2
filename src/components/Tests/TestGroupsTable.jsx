@@ -14,54 +14,54 @@ class TestGroupsTable extends Component {
 
 
     componentDidMount() {
-        this.updatetestGroups();
+        this.updateTestGroups();
     }
 
-    updatetestGroups = () => {
-        TestGroupsService.getFulltestGroups().then(testGroupResponse => {
+    updateTestGroups = () => {
+        TestGroupsService.getFullTestGroups().then(testGroupResponse => {
             this.setState({testGroups: testGroupResponse});
         });
     }
 
-    ontestGroupUpdated = (oldGroup, newGroup) => {
-        testGroupsService.updatetestGroup(newGroup).then(testGroupResponse => {
+    onTestGroupUpdated = (oldGroup, newGroup) => {
+        TestGroupsService.updateTestGroup(newGroup).then(testGroupResponse => {
             const groupToUpdateIndex = this.state.testGroups.findIndex(fg => fg.id === oldGroup.id);
             if (groupToUpdateIndex >= 0) {
-                const newtestGroupsState = update(this.state.testGroups, {
+                const newTestGroupsState = update(this.state.testGroups, {
                     $splice: [[groupToUpdateIndex, 1, newGroup]]
                 });
-                this.setState({testGroups: newtestGroupsState});
+                this.setState({testGroups: newTestGroupsState});
             }
         });
     }
 
-    ontestGroupCreated = (newGroup) => {
-        testGroupsService.createtestGroup(newGroup).then(testGroupResponse => {
-            const newtestGroupsState = update(this.state.testGroups, {
+    onTestGroupCreated = (newGroup) => {
+        TestGroupsService.createTestGroup(newGroup).then(testGroupResponse => {
+            const newTestGroupsState = update(this.state.testGroups, {
                 $push: [testGroupResponse]
             });
-            this.setState({testGroups: newtestGroupsState});
+            this.setState({testGroups: newTestGroupsState});
         });
     }
 
-    ontestGroupDeleted = (groupToDelete) => {
-        testGroupsService.deletetestGroup(groupToDelete.id).then(testGroupResponse => {
+    onTestGroupDeleted = (groupToDelete) => {
+        TestGroupsService.deleteTestGroup(groupToDelete.id).then(testGroupResponse => {
             const groupToDeleteIndex = this.state.testGroups.findIndex(fg => fg.id === groupToDelete.id);
-            const newtestGroupsState = update(this.state.testGroups, {
+            const newTestGroupsState = update(this.state.testGroups, {
                 $splice: [[groupToDeleteIndex, 1]]
             });
-            this.setState({testGroups: newtestGroupsState});
+            this.setState({testGroups: newTestGroupsState});
         });
     }
 
-    onGrouptestsUpdated = (testGroupId, newtests) => {
+    onGroupTestsUpdated = (testGroupId, newTests) => {
         const groupToUpdateIndex = this.state.testGroups.findIndex(fg => fg.id === testGroupId);
         if (groupToUpdateIndex < 0) {
             return;
         }
         const newtestGroupsState = update(this.state.testGroups, {
             [groupToUpdateIndex]: {
-                tests: {$set: newtests}
+                tests: {$set: newTests}
             }
         });
         this.setState({testGroups: newtestGroupsState});
@@ -81,7 +81,7 @@ class TestGroupsTable extends Component {
                     data={this.state.testGroups}
                     title=""
                     detailPanel={rowData => <testsTable tests={rowData.tests} testGroupId={rowData.id}
-                                                         onGrouptestsUpdated={this.onGrouptestsUpdated}/>}
+                                                         onGroupTestsUpdated={this.onGroupTestsUpdated}/>}
                     onRowClick={(event, rowData, togglePanel) => togglePanel()}
                     options={{
                         actionsColumnIndex: -1
@@ -91,21 +91,21 @@ class TestGroupsTable extends Component {
                         onRowAdd: newData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
-                                    this.ontestGroupCreated(newData);
+                                    this.onTestGroupCreated(newData);
                                     resolve();
                                 }, 250);
                             }),
                         onRowUpdate: (newData, oldData) =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
-                                    this.ontestGroupUpdated(oldData, newData);
+                                    this.onTestGroupUpdated(oldData, newData);
                                     resolve();
                                 }, 250);
                             }),
                         onRowDelete: oldData =>
                             new Promise((resolve, reject) => {
                                 setTimeout(() => {
-                                    this.ontestGroupDeleted(oldData);
+                                    this.onTestGroupDeleted(oldData);
                                     resolve();
                                 }, 250);
                             })
