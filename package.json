@@ -21,6 +21,7 @@
     "moment": "^2.25.3",
     "notistack": "^0.9.11",
     "prop-types": "^15.7.2",
+    "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
@@ -54,11 +55,13 @@
     "productName": "DrDocx",
     "appId": "com.faizsurani.drdocx",
     "afterSign": "osx/notarize.js",
-    "publish": [{
-      "provider": "github",
-      "owner": "DrDocx",
-      "repo": "DrDocx-Desktop"
-    }],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "DrDocx",
+        "repo": "DrDocx-Desktop"
+      }
+    ],
     "win": {
       "target": "nsis"
     },

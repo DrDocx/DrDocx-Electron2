@@ -1,5 +1,10 @@
 import axios from "axios";
-import {fieldGroupApiUrl, fieldGroupDefaultsApiUrl, fieldGroupsApiUrl} from "./service-routes";
+import qs from "qs";
+import {fieldGroupApiUrl,
+    fieldGroupDefaultsApiUrl,
+    fieldGroupsApiUrl,
+    fieldGroupDownloadApiUrl,
+} from "./service-routes";
 
 class FieldGroupsService {
     static fieldGroupUrl(id) {
@@ -36,6 +41,19 @@ class FieldGroupsService {
 
     static async createFieldGroup(fieldGroup) {
         return axios.post(fieldGroupsApiUrl, fieldGroup).then(response => response.data);
+    }
+
+    static async exportFieldGroups(fieldGroupIds) {
+        console.log(fieldGroupIds);
+        return axios.get(fieldGroupDownloadApiUrl, {
+            responseType: "blob",
+            params: {
+                fieldGroupIds: fieldGroupIds
+            },
+            paramsSerializer: params => {
+                return qs.stringify(params)
+            }
+        });
     }
 }
 
