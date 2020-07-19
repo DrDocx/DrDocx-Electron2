@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import FieldGroupsService from "../../services/FieldGroupsService";
+import Dialog from "../../helpers/Dialog";
 import MaterialTable from "material-table";
 import {tableIcons, tableStyles} from "../common/TableHelpers";
 import FieldsTable from "./FieldsTable";
@@ -82,14 +83,21 @@ class FieldGroupsTable extends Component {
                     data={this.state.fieldGroups}
                     title=""
                     detailPanel={rowData => <FieldsTable fields={rowData.fields} fieldGroupId={rowData.id}
-                                                         onGroupFieldsUpdated={this.onGroupFieldsUpdated}/>}
+                    onGroupFieldsUpdated={this.onGroupFieldsUpdated}/>}
                     onRowClick={(event, rowData, togglePanel) => togglePanel()}
                     options={{
                         actionsColumnIndex: -1,
                         emptyRowsWhenPaging: false,
-                        pageSize: 10
+                        pageSize: 10,
                     }}
                     localization={{body: {editRow: {deleteText: 'Are you sure you want to delete this field group?'}}}}
+                    actions = {[
+                    {
+                        icon: tableIcons.Export,
+                        position: 'toolbar',
+                        onClick: () => FieldGroupsService.exportFieldGroups([]).then(Dialog.downloadFile),
+                    }
+                    ]}
                     editable={{
                         onRowAdd: newData =>
                             new Promise((resolve, reject) => {
