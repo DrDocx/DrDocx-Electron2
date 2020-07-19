@@ -13,6 +13,8 @@ export const fieldApiUrl = (id) => idUrl(fieldsApiUrl, id);
 export const fieldGroupsApiUrl = fullUrl("/fieldGroup");
 export const fieldGroupApiUrl = (id) => idUrl(fieldGroupsApiUrl, id);
 export const fieldGroupDefaultsApiUrl = `${fieldGroupsApiUrl}/default`;
+export const fieldGroupDownloadApiUrl = `${fieldGroupsApiUrl}/download`;
+export const fieldGroupUploadApiUrl = `${fieldGroupsApiUrl}/upload`;
 
 export const fieldValueGroupsApiUrl = fullUrl("/fieldValueGroup");
 export const fieldValueGroupApiUrl = (id) => idUrl(fieldValueGroupsApiUrl, id);
