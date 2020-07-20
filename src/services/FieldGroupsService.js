@@ -44,7 +44,6 @@ class FieldGroupsService {
     }
 
     static async exportFieldGroups(fieldGroupIds) {
-        console.log(fieldGroupIds);
         return axios.get(fieldGroupDownloadApiUrl, {
             responseType: "blob",
             params: {

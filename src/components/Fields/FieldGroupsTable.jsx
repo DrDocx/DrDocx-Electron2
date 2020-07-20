@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import FieldGroupsService from "../../services/FieldGroupsService";
-import Dialog from "../../helpers/Dialog";
+import Dialog from "../common/Dialog";
 import MaterialTable from "material-table";
 import {tableIcons, tableStyles} from "../common/TableHelpers";
 import FieldsTable from "./FieldsTable";
