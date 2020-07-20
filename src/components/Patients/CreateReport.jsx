@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import * as PropTypes from 'prop-types';
 import ReportsService from "../../services/ReportsService";
+import Dialog from "../common/Dialog";
 import SelectAndAct from "../common/SelectAndAct";
 import {withSnackbar} from "notistack";
 
@@ -26,18 +27,7 @@ class CreateReport extends Component {
                 {variant: 'error'});
             return;
         }
-        ReportsService.generateReport(reportTemplateId, this.props.patient.id).then(reportResponse => {
-            const fileNameRegex = /filename=(.+?);/;
-            const contentHeader = reportResponse.headers['content-disposition'];
-            const fileName = contentHeader.match(fileNameRegex)[1];
-            const downloadUrl = window.URL.createObjectURL(new Blob([reportResponse.data]));
-            const link = document.createElement('a');
-            link.href = downloadUrl;
-            link.setAttribute('download', fileName);
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        });
+        ReportsService.generateReport(reportTemplateId, this.props.patient.id).then(Dialog.downloadFile);
     }
 
     render() {
