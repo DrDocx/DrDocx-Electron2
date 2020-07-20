@@ -89,14 +89,26 @@ class FieldGroupsTable extends Component {
                         actionsColumnIndex: -1,
                         emptyRowsWhenPaging: false,
                         pageSize: 10,
+                        selection: true,
                     }}
                     localization={{body: {editRow: {deleteText: 'Are you sure you want to delete this field group?'}}}}
                     actions = {[
-                    {
-                        icon: tableIcons.Export,
-                        position: 'toolbar',
-                        onClick: () => FieldGroupsService.exportFieldGroups([]).then(Dialog.downloadFile),
-                    }
+                        {
+                            icon: tableIcons.Export,
+                            tooltip: 'Export All Field Groups',
+                            position: 'toolbar',
+                            onClick: (evt, data) => {
+                                FieldGroupsService.exportFieldGroups([]).then(Dialog.downloadFile);
+                            },
+                        },
+                        {
+                            icon: tableIcons.Export,
+                            tooltip: 'Export Selected Field Groups',
+                            onClick: (evt, data) => {
+                                let fieldGroupIds = data.map(fieldGroup => fieldGroup.id);
+                                FieldGroupsService.exportFieldGroups(fieldGroupIds).then(Dialog.downloadFile);
+                            }
+                        },
                     ]}
                     editable={{
                         onRowAdd: newData =>
